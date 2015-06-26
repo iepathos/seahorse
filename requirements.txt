@@ -1,0 +1,2 @@
+rethinkdb==2.0.0.post2
+tornado==4.2
