@@ -1,7 +1,7 @@
 from tornado.escape import json_encode
 from ..handlers import BaseHandler
 from tornado.gen import coroutine
-from ..utils import template, verify_key, WRONG_KEY
+from ..utils import template, is_valid_email
 from .users import verify_user, add_user
 
 
@@ -51,15 +51,18 @@ class RegistrationHandler(AuthBaseHandler):
     def post(self):
         email = self.get_argument('email')
         password = self.get_argument('password')
+        if not is_valid_email(email):
+            error = 'Please enter a valid email address'
+            self.render(template('register.html'), error=error)
+
         rdb = yield add_user(self.db, email, password)
         if rdb.get('first_error') is None:
             # user added successfully
-            # log user in and redirect
             self.set_current_user(email)
             self.redirect('/')
         else:
             # error = rdb.get('first_error')
-            error = 'Error adding user to database.'
+            error = 'An error occurred adding user to database.'
             self.render(template('register.html'), error=error)
 
 

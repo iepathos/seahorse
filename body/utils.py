@@ -1,6 +1,13 @@
 import os
 from .config import TEMPLATES_DIR, APP_PUBLIC_KEY
 from passlib.hash import pbkdf2_sha256
+import re
+
+
+def is_valid_email(address):
+    if re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", address):
+        return True
+    return False
 
 
 def template(path):
