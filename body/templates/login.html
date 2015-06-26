@@ -1,0 +1,32 @@
+{% extends '../templates/base.html' %}
+
+{% block title %}login{% end %}
+
+{% block content %}
+<div class="col-xs-offset-4 col-xs-3">
+    <h1>[login]</h1>
+    <p>All of ye' brave seadogs must await the rising tide.</p>
+    {% if user == None %}
+        {% include '_login_form.html' %}
+    {% else %}
+        <h4>You are already logged in, {{ user }}!</h4>
+            
+        <h4>Do you want to <a href="/logout/">logout</a> or go <a href="/">home</a>?</h4>
+        
+        
+    {% end %}
+</div>
+
+<div class="col-xs-3">
+    <a href="/register/">register</a>
+</div>
+{% end %}
+
+
+{% block extra_js %}
+    <script>
+        $(document).ready(function(){
+            $('#username').focus();
+        });
+    </script>
+{% end %}

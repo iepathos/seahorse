@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>{% block title %}{% end %} : seahorse v0.2-dev</title>
+    <title>{% block title %}{% end %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Glen Baker">
+    <link rel="shortcut icon" type="image/png" href="{{ static_url('favicon.png') }}"/>
+
+    <link rel="stylesheet" href="{{ static_url('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+
+    {% block extra_head %}{% end %}
+</head>
+<body>
+    {% block content %}{% end %}
+
+
+    <script type="text/javascript" src="{{ static_url('bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('bower_components/moment/min/moment.min.js') }}"></script>
+    {% block extra_js %}{% end %}
+</body>
+</html>

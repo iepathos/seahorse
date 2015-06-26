@@ -1,0 +1,24 @@
+{% extends '../templates/base.html' %}
+
+{% block title %}register{% end %}
+
+{% block content %}
+<div class="col-xs-offset-4 col-xs-3">
+    <h1>[register]</h1>
+    <p>All of ye' brave seadogs must await the rising tide.</p>
+    {% include '_registration_form.html' %}
+</div>
+
+<div class="col-xs-3">
+    <a href="/login/">login</a>
+</div>
+{% end %}
+
+
+{% block extra_js %}
+    <script>
+        $(document).ready(function(){
+            $('#username').focus();
+        });
+    </script>
+{% end %}

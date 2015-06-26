@@ -1,11 +1,54 @@
-import tornado.web
+# -*- coding: utf-8 -*-
+import json
+import rethinkdb as r
+from tornado.web import RequestHandler
+from tornado.websocket import WebSocketHandler
+from tornado.web import authenticated
+from tornado.gen import coroutine
+from .db import LISTENERS
+from .utils import template
 
 
-class BaseHandler(tornado.web.RequestHandler):
-    pass
+class BaseHandler(RequestHandler):
+
+    def initialize(self):
+        self.db = self.application.db
+        self.users = r.table('users')
+
+    def get_current_user(self):
+        username = self.get_secure_cookie("user")
+        if username:
+            return username[1:-1].decode("utf-8")
+        return None
 
 
-class IndexHandler(BaseHandler):
+class BaseWebSocketHandler(WebSocketHandler):
 
+    def get_current_user(self):
+        username = self.get_secure_cookie("user")
+        if username:
+            return username[1:-1].decode("utf-8")
+        return None
+
+
+class HomeHandler(BaseHandler):
+
+    @authenticated
+    @coroutine
     def get(self):
-        self.write("Hello, world")
+        user = self.get_current_user()
+        self.render(template('home.html'),
+                    user=self.get_current_user())
+
+
+class DataSyncHandler(BaseWebSocketHandler):
+
+    @coroutine
+    def open(self):
+        LISTENERS.append(self)
+
+    def on_message(self, message):
+        self.write_message(json.dumps(message))
+
+    def on_close(self):
+        LISTENERS.remove(self)
