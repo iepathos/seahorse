@@ -1,3 +1,4 @@
 *.pyc
 __pycache__/
 rethinkdb_data/
+bower_components/
