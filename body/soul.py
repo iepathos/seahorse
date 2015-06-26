@@ -10,24 +10,15 @@ class HotWire(Application):
         handlers = [
             (r'/', IndexHandler),
 
-            (r'/(apple-touch-icon\.png)', StaticFileHandler,
-             dict(path=config['static_path'])),
+            (r"/static/(.*)", StaticFileHandler,
+             {'path': config['static_path']}),
         ]
         Application.__init__(self, handlers, **config)
 
         self.db = db_conn
 
 
-def make_love_child(db_conn):
-    return HotWire(config=conf, db_conn=db_conn)
-
-
-def make_app():
+def make_app(db_conn):
     # Logging
     enable_pretty_logging()
-
-    # Routing
-    app = Application([
-        (r"/", IndexHandler),
-    ])
-    return app
+    return HotWire(config=conf, db_conn=db_conn)

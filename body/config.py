@@ -7,7 +7,7 @@ STATIC_DIR = os.path.join(APP_DIR, 'static')
 
 RETHINK_HOST = 'localhost'
 RETHINK_PORT = 28015
-DB_NAME = 'seahorse'
+DB_NAME = 'test'
 
 APP_PUBLIC_KEY = 'seahorse'
 

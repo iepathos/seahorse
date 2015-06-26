@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import rethinkdb as r
-from mojo.config import RETHINK_HOST, RETHINK_PORT, DB_NAME
+from .config import RETHINK_HOST, RETHINK_PORT, DB_NAME
 from tornado.gen import coroutine
 from tornado.ioloop import IOLoop
 from functools import partial
