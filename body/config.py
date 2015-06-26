@@ -9,8 +9,7 @@ RETHINK_HOST = 'localhost'
 RETHINK_PORT = 28015
 DB_NAME = 'test'
 
-APP_PUBLIC_KEY = 'seahorse'
-
+SECRET_KEY = 'seahorse'
 
 conf = {
     'debug': True,
@@ -18,7 +17,7 @@ conf = {
     'static_path': STATIC_DIR,
     'auto_reload': True,
     'xsrf_cookies': True,
-    'cookie_secret': 'The rubber bands all point northward',
+    'cookie_secret': SECRET_KEY,
     'serve_traceback': True,
     'login_url': '/login/'
 }

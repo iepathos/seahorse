@@ -1,9 +1,9 @@
+from tornado.gen import coroutine
+from tornado.log import access_log
 from tornado.escape import json_encode
 from ..handlers import BaseHandler
-from tornado.gen import coroutine
 from ..utils import template, is_valid_email
 from .users import verify_user, add_user
-from tornado.log import access_log
 
 
 class AuthBaseHandler(BaseHandler):
@@ -31,7 +31,7 @@ class RegistrationHandler(AuthBaseHandler):
         rdb = yield add_user(self.db, email, password)
         if rdb.get('first_error') is None:
             # user added successfully
-            access_log.info('%s registered and logged in successfully.' % email)
+            access_log.info('%s registered and logged in.' % email)
             self.set_current_user(email)
             self.redirect('/')
         else:
@@ -58,7 +58,7 @@ class AuthLoginHandler(AuthBaseHandler):
         password = self.get_argument("password", "")
         auth = yield verify_user(self.db, email, password)
         if auth:
-            access_log.info('%s logged in successfully.' % email)
+            access_log.info('%s logged in.' % email)
             self.set_current_user(email)
             self.redirect(self.get_argument("next", u"/"))
         else:
@@ -74,6 +74,6 @@ class AuthLogoutHandler(BaseHandler):
 
     def get(self):
         user = self.get_current_user()
-        access_log.info('%s logged out successfully.' % user)
+        access_log.info('%s logged out.' % user)
         self.clear_cookie("user")
         self.redirect(self.get_argument("next", "/"))
