@@ -27,6 +27,5 @@ class Seahorse(Application):
 
 
 def make_app(db_conn):
-    # Logging
     enable_pretty_logging()
     return Seahorse(config=conf, db_conn=db_conn)
