@@ -6,6 +6,9 @@ from body.db import get_db_conn, setup_tables, rethink_listener
 from tornado.gen import coroutine
 import threading
 
+__author__ = 'Glen Baker <iepathos@gmail.com>'
+__version__ = '0.2-dev'
+
 
 @coroutine
 def rethink_setup():
