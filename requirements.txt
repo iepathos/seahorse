@@ -1,4 +1,6 @@
 itsdangerous==0.24
 passlib==1.6.2
+PyExecJS==1.1.0
+PyReact==0.5.2
 rethinkdb==2.0.0.post2
 tornado==4.2
