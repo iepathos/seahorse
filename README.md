@@ -14,5 +14,3 @@ Python Libraries
 Javascript Libraries
 ----------------
 Jquery
-Bootstrap
-Moment

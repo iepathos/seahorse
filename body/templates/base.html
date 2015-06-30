@@ -10,17 +10,18 @@
     <meta name="author" content="Glen Baker">
     <link rel="shortcut icon" type="image/png" href="{{ static_url('favicon.png') }}"/>
 
-    <link rel="stylesheet" href="{{ static_url('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('bower_components/pure/base-min.css') }}">
+    <link rel="stylesheet" href="{{ static_url('bower_components/pure/pure-min.css') }}">
 
     {% block extra_head %}{% end %}
 </head>
 <body>
     {% block content %}{% end %}
 
-
+    <footer class='pure-g'>
+        <p class='pure-u-3-5'>seahorse v0.2-dev</p>
+    </footer>
     <script type="text/javascript" src="{{ static_url('bower_components/jquery/dist/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ static_url('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ static_url('bower_components/moment/min/moment.min.js') }}"></script>
     {% block extra_js %}{% end %}
 </body>
 </html>

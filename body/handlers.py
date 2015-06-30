@@ -43,12 +43,15 @@ class HomeHandler(BaseHandler):
 
 class DataSyncHandler(BaseWebSocketHandler):
 
+    @authenticated
     @coroutine
     def open(self):
         LISTENERS.append(self)
 
+    @authenticated
     def on_message(self, message):
         self.write_message(json.dumps(message))
 
+    @authenticated
     def on_close(self):
         LISTENERS.remove(self)

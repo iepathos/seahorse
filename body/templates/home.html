@@ -1,24 +1,22 @@
 {% extends '../templates/base.html' %}
 
-{% block title %}{% end %}
+{% block title %}Home{% end %}
 
 {% block extra_head %}
 
 {% end %}
 
 {% block content %}
-  <div class="col-xs-offset-2 col-xs-7">
-    <h6>seahorse v0.2-dev</h6>
-
+  <div class="pure-g">
+    <div class="pure-u-3-5">
     <div id='content'></div>
-  </div>
-
-  <div class="col-xs-3">
-    <div class="pull-right">
-      Welcome, {{ user }}!
     </div>
-    <br>
-    <a href="/logout/" class='pull-right'>logout</a> <br>
+
+    <div class="pure-u-1-5">
+      Welcome, {{ user }}!
+      <br>
+      <a href="/logout/" class='pull-right'>logout</a> <br>
+    </div>
   </div>
 {% end %}
 

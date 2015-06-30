@@ -18,7 +18,7 @@ class AuthBaseHandler(BaseHandler):
 class RegistrationHandler(AuthBaseHandler):
 
     def get(self):
-        self.render(template('register.html'), error='')
+        self.render(template('auth/register.html'), error='')
 
     @coroutine
     def post(self):
@@ -26,7 +26,7 @@ class RegistrationHandler(AuthBaseHandler):
         password = self.get_argument('password')
         if not is_valid_email(email):
             error = 'Please enter a valid email address'
-            self.render(template('register.html'), error=error)
+            self.render(template('auth/register.html'), error=error)
 
         rdb = yield add_user(self.db, email, password)
         if rdb.get('first_error') is None:
@@ -37,7 +37,7 @@ class RegistrationHandler(AuthBaseHandler):
         else:
             access_log.error(rdb.get('first_error'))
             error = 'An error occurred adding user to database.'
-            self.render(template('register.html'), error=error)
+            self.render(template('auth/register.html'), error=error)
 
 
 class AuthLoginHandler(AuthBaseHandler):
@@ -48,7 +48,7 @@ class AuthLoginHandler(AuthBaseHandler):
         except:
             error = ""
         user = self.get_current_user()
-        self.render(template("login.html"),
+        self.render(template("auth/login.html"),
                     error=error,
                     user=user)
 
@@ -65,7 +65,7 @@ class AuthLoginHandler(AuthBaseHandler):
             access_log.info('%s failed login.' % email)
             error = "Login incorrect"
             user = self.get_current_user()
-            self.render(template("login.html"),
+            self.render(template("auth/login.html"),
                         error=error,
                         user=user)
 
