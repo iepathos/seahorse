@@ -8,25 +8,20 @@
 
 {% block content %}
   <div class="pure-g">
+    <div class="pure-u-1-5"></div>
     <div class="pure-u-3-5">
     <div id='content'></div>
-    </div>
 
-    <div class="pure-u-1-5">
-      Welcome, {{ user }}!
-      <br>
-      <a href="/logout/" class='pull-right'>logout</a> <br>
+    <a href="/logout/" class='pull-right'>logout</a>
     </div>
   </div>
 {% end %}
 
 
 {% block extra_js %}
-  <script src='{{ static_url('js/datasync.js') }}'></script>
+  <script src="{{ static_url('js/datasync.js') }}"></script>
 
-  <script src='{{ static_url('js/get_cookie.js') }}'></script>
+  <script src="{{ static_url('js/get_cookie.js') }}"></script>
 
-  <script>
-
-  </script>
+  <script src="{{ static_url('js/seahorse.js') }}"></script>
 {% end %}
