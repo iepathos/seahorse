@@ -4,7 +4,6 @@ $(document).ready(function(){
     
     ws.onopen = function() {
       console.log('Seahorse DataSync online');
-      $('#content').text('Seahorse DataSync online');
     };
     
     ws.onmessage = function (evt) {
@@ -20,7 +19,6 @@ $(document).ready(function(){
     
     ws.onclose = function() {
       console.log('Seahorse DataSync offline');
-      $('#content').text('Seahorse DataSync offline');
     };
   } else {
     alert("WebSocket not supported");
