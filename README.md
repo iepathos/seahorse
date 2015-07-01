@@ -15,5 +15,5 @@ Python Libraries
 
 Javascript Libraries
 ----------------
-jQuery
-React.js
++ jQuery
++ React.js
