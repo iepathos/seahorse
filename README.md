@@ -4,6 +4,7 @@ Seahorse is a fullstack asynchronous web server.  It is built with speed, realti
 
 Seahorse is in active development and could change architecture and library choices drastically as it progresses.
 
+Built with Python 3.4.3
 
 Python Libraries
 ----------------
