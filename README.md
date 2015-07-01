@@ -36,7 +36,7 @@ bower install
 rethinkdb
 ````
 
-Open another shell to run
+Open another shell to start web server
 ````bash
 cd seahorse
 ./mind --run
