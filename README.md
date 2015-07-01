@@ -1,6 +1,8 @@
-Seahorse Server
+Seahorse v0.4-dev
 ----------------
-Seahorse is a fullstack asynchronous web server.  It is built with realtime behavior in mind.
+Seahorse is a fullstack asynchronous web server.  It is built with speed, realtime behavior and scalability in mind.
+
+Seahorse is in active development and could change architecture and library choices drastically as it progresses.
 
 
 Python Libraries
@@ -13,4 +15,5 @@ Python Libraries
 
 Javascript Libraries
 ----------------
-Jquery
+jQuery
+React.js
