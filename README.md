@@ -21,7 +21,7 @@ Javascript Libraries
 
 
 
-Development Setup
+Development Server Setup
 ----------------
 
 Clone repo, install dependencies, start RethinkDB
