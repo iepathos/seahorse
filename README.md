@@ -18,3 +18,21 @@ Javascript Libraries
 ----------------
 + jQuery
 + React.js
+
+
+
+Development Setup
+----------------
+
+
+````bash
+pyenv seahorse
+git clone https://github.com/iepathos/seahorse.git
+cd seahorse
+pip install -r requirements.txt
+bower update
+````
+
+
+````bash
+````

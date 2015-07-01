@@ -1,0 +1,31 @@
+{
+  "name": "seahorse",
+  "version": "0.4",
+  "homepage": "https://github.com/iepathos/seahorse",
+  "authors": [
+    "Glen Baker <iepathos@gmail.com>"
+  ],
+  "description": "Seahorse is an asynchronous web server starter template.",
+  "keywords": [
+    "seahorse",
+    "tornado",
+    "react",
+    "rethinkdb",
+    "jquery"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "body/static/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "moment": "~2.10.3",
+    "pure": "~0.6.0",
+    "react": "~0.13.3"
+  }
+}
