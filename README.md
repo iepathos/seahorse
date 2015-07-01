@@ -33,11 +33,6 @@ git clone https://github.com/iepathos/seahorse.git
 cd seahorse
 pip install -r requirements.txt
 bower install
-rethinkdb
-````
-
-Open another shell to start web server
-````bash
-cd seahorse
+rethinkdb &
 ./mind --run
 ````
