@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-import rethinkdb as r
-from tornado.testing import AsyncHTTPTestCase
 from body.soul import make_app
-from body.config import RETHINK_HOST, RETHINK_PORT, DB_NAME
 from body.db import get_db_conn_synchronous
+from tornado.testing import AsyncHTTPTestCase
 
 
 class SeahorseTestCase(AsyncHTTPTestCase):
