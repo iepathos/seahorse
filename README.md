@@ -24,15 +24,20 @@ Javascript Libraries
 Development Setup
 ----------------
 
-
+Clone repo, install dependencies, start RethinkDB
 ````bash
+cd .virtualenvs
 pyenv seahorse
+cd ~
 git clone https://github.com/iepathos/seahorse.git
 cd seahorse
 pip install -r requirements.txt
-bower update
+bower install
+rethinkdb
 ````
 
-
+Open another shell to run
 ````bash
+cd seahorse
+./mind --run
 ````
