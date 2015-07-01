@@ -6,12 +6,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="Seahorse asynchronous web server">
     <meta name="author" content="Glen Baker">
     <link rel="shortcut icon" type="image/png" href="{{ static_url('favicon.png') }}"/>
 
-    <link rel="stylesheet" href="{{ static_url('bower_components/pure/base-min.css') }}">
-    <link rel="stylesheet" href="{{ static_url('bower_components/pure/pure-min.css') }}">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ static_url('css/base.css') }}">
 
     {% block extra_head %}{% end %}
@@ -20,20 +19,17 @@
     {% block content %}{% end %}
 
     <footer>
-        <div class="pure-g">
-            <div class="pure-u-1-5"></div>
-            <p class='pure-u-3-5'>&copy; 2015 Seahorse created by Glen Baker on the shoulders of giants.</p>
+        <div>
+            <p>&copy; 2015 Seahorse created by Glen Baker on the shoulders of giants.</p>
         </div>
-        <div class="pure-g">
-            <div class="pure-u-1-5"></div>
-            <div class='pure-u-3-5'>
+        <div>
+            <div>
                 <h2>Seahorse is built with</h2>
                 <ul>
                     <li>Tornado</li>
                     <li>RethinkDB</li>
                     <li>React.js</li>
                     <li>jQuery</li>
-                    <li>Pure.css</li>
                 </ul>
             </div>
         </div>
