@@ -14,6 +14,13 @@ __version__ = '0.4-dev'
 
 
 @coroutine
+def build_tables():
+    """Builds tables and then stops current IOLoop"""
+    yield setup_tables()
+    IOLoop.current().stop()
+
+
+@coroutine
 def rethink_setup():
     yield setup_tables()
     print('Starting RethinkDB listener')
@@ -35,6 +42,9 @@ if __name__ == "__main__":
                         help='Runs Seahorse server')
     parser.add_argument('--jsx_compile', dest='jsx', action='store_true',
                         help='Compile JSX static files into JS files')
+    parser.add_argument('--build_tables', dest='build_tables',
+                        action='store_true', help='Build RethinkDB tables')
+
 
     args = parser.parse_args()
     if args.run:
@@ -44,5 +54,7 @@ if __name__ == "__main__":
         IOLoop.current().start()
     elif args.jsx:
         jsx_compile()
+    elif args.build_tables:
+        IOLoop.current().run_sync(build_tables)
     else:
         parser.print_help()
