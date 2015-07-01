@@ -1,14 +1,15 @@
 var Menu = React.createClass({
   render: function() {
     return (
-      <a href="/logout/" class='pull-right'>logout</a>
+      <p>
+        <a href="/logout/" class='pull-right'>logout</a>
+      </p>
     );
   }
 });
 
-setInterval(function() {
-  React.render(
-    <Menu />,
-    document.getElementById('menu')
-  );
-}, 500);
+
+React.render(
+  <Menu />,
+  document.getElementById('menu')
+);

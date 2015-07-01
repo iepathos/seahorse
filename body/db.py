@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import rethinkdb as r
-from .config import RETHINK_HOST, RETHINK_PORT, DB_NAME
-from tornado.gen import coroutine
-from tornado.ioloop import IOLoop
 from functools import partial
+from tornado.ioloop import IOLoop
+from tornado.gen import coroutine
+from .config import RETHINK_HOST, RETHINK_PORT, DB_NAME
 
 
 LISTENERS = []
@@ -33,13 +33,8 @@ def make_table(name):
 
 
 @coroutine
-def make_user_table():
-    yield make_table('users')
-
-
-@coroutine
 def setup_tables():
-    yield make_user_table()
+    yield make_table('users')
 
 
 @coroutine

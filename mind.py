@@ -10,7 +10,7 @@ from body.jsx_compile import jsx_compile
 
 
 __author__ = 'Glen Baker <iepathos@gmail.com>'
-__version__ = '0.2-dev'
+__version__ = '0.4-dev'
 
 
 @coroutine
@@ -23,8 +23,8 @@ def rethink_setup():
 @coroutine
 def run_server():
     db_conn = yield get_db_conn()
-    seadog = make_app(db_conn)
-    seadog.listen(8888)
+    seahorse = make_app(db_conn)
+    seahorse.listen(8888)
 
 
 if __name__ == "__main__":
