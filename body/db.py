@@ -9,6 +9,18 @@ from .config import RETHINK_HOST, RETHINK_PORT, DB_NAME
 LISTENERS = []
 
 
+def get_db_conn_synchronous():
+    """Returns a RethinkDB connection, synchronous - mostly for testing"""
+    r.set_loop_type("tornado")
+    try:
+        conn = r.connect(host=RETHINK_HOST,
+                         port=RETHINK_PORT,
+                         db=DB_NAME)
+    except r.RqlRuntimeError:
+        conn = r.connect(host=RETHINK_HOST, port=RETHINK_PORT)
+    return conn
+
+
 @coroutine
 def get_db_conn():
     """Yields a RethinkDB connection"""
