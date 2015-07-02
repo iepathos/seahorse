@@ -34,5 +34,5 @@ cd seahorse
 pip install -r requirements.txt
 bower install
 rethinkdb &
-./mind --run
+./seahorse.py --run
 ````

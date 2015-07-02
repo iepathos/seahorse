@@ -3,7 +3,7 @@
 import argparse
 import threading
 from tornado.ioloop import IOLoop
-from body.soul import make_app
+from body.mind import make_app
 from body.db import get_db_conn, setup_tables, rethink_listener
 from tornado.gen import coroutine
 from body.jsx_compile import jsx_compile
@@ -44,7 +44,6 @@ if __name__ == "__main__":
                         help='Compile JSX static files into JS files')
     parser.add_argument('--build_tables', dest='build_tables',
                         action='store_true', help='Build RethinkDB tables')
-
 
     args = parser.parse_args()
     if args.run:
