@@ -27,10 +27,11 @@ Development Server Setup
 Clone repo, install dependencies, start RethinkDB
 ````bash
 cd .virtualenvs
-pyenv seahorse
+pyenv project_name
 cd ~
-git clone https://github.com/iepathos/seahorse.git
-cd seahorse
+git clone https://github.com/iepathos/seahorse.git project_name
+cd project_name
+workon project_name
 pip install -r requirements.txt
 bower install
 rethinkdb &
