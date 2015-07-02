@@ -24,7 +24,7 @@ Javascript Libraries
 Development Server Setup
 ----------------
 
-Clone repo, install dependencies, start RethinkDB
+Clone repo, install dependencies, start RethinkDB, run server
 ````bash
 cd .virtualenvs
 pyenv project_name
