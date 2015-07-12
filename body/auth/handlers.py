@@ -28,6 +28,8 @@ class RegistrationHandler(AuthBaseHandler):
             error = 'Please enter a valid email address'
             self.render(template('auth/register.html'), error=error)
 
+        # TODO: send verification email
+
         rdb = yield add_user(self.db, email, password)
         if rdb.get('first_error') is None:
             # user added successfully

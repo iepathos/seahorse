@@ -9,12 +9,17 @@ JSX_DIR = os.path.join(STATIC_DIR, 'jsx')
 CSS_DIR = os.path.join(STATIC_DIR, 'css')
 IMG_DIR = os.path.join(STATIC_DIR, 'img')
 
-
 RETHINK_HOST = 'localhost'
 RETHINK_PORT = 28015
 DB_NAME = 'test'
 
 SECRET_KEY = 'seahorse'
+
+SEAHORSE_EMAIL = os.environ.get('SEAHORSE_EMAIL')
+SEAHORSE_EMAIL_PASS = os.environ.get('SEAHORSE_EMAIL_PASS')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+
 
 conf = {
     'debug': True,

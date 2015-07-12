@@ -8,11 +8,13 @@ from .config import TEMPLATES_DIR, JS_DIR, JSX_DIR, SECRET_KEY
 
 
 def gen_signature(data):
+    """Generates a TimestampSignature using config SECRET_KEY."""
     s = TimestampSigner(SECRET_KEY)
     return s.sign(data)
 
 
 def check_signature(signature, age):
+    """Checks whether a timestamp signature is valid and under a given age."""
     s = TimestampSigner(SECRET_KEY)
     return s.unsign(signature, max_age=age)
 

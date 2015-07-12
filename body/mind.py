@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from tornado.web import StaticFileHandler, Application
 from tornado.log import enable_pretty_logging
-from .handlers import HomeHandler, DataSyncHandler
 from .config import conf
+from .handlers import HomeHandler, DataSyncHandler
 from .auth.handlers import RegistrationHandler, \
                            AuthLoginHandler, \
                            AuthLogoutHandler
