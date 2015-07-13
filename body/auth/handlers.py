@@ -58,7 +58,7 @@ class VerificationHandler(AuthBaseHandler):
 
         email = str(email)
         yield activate_user(self.db, email)
-        access_log.info('%s email verified, user account activated.' % email)
+        access_log.info('%s email verified, user account activated and logged in.' % email)
         self.set_current_user(email)
         self.redirect('/')
 
