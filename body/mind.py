@@ -4,6 +4,7 @@ from tornado.log import enable_pretty_logging
 from .config import conf
 from .handlers import HomeHandler, DataSyncHandler
 from .auth.handlers import RegistrationHandler, \
+                           VerificationHandler, \
                            AuthLoginHandler, \
                            AuthLogoutHandler
 
@@ -14,11 +15,12 @@ class Seahorse(Application):
         handlers = [
             (r'/', HomeHandler),
             (r'/register/', RegistrationHandler),
+            (r'/verify/([^/]*)', VerificationHandler),
             (r'/login/', AuthLoginHandler),
             (r'/logout/', AuthLogoutHandler),
             (r'/datasync/', DataSyncHandler),
 
-            (r"/static/(.*)", StaticFileHandler,
+            (r'/static/(.*)', StaticFileHandler,
              {'path': config['static_path']}),
         ]
         Application.__init__(self, handlers, **config)

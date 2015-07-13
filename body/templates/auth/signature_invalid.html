@@ -1,0 +1,22 @@
+{% extends '../templates/base.html' %}
+
+{% block title %}Signature Invalid{% end %}
+
+{% block content %}
+    <div>
+        <div>
+            <h1>[verify email]</h1>
+            <p>Your signature is either invalid or expired.  Re-send verification?</p>
+            {% include 'auth/_resend_verification_form.html' %}
+        </div>
+    </div>
+{% end %}
+
+
+{% block extra_js %}
+    <script>
+        $(document).ready(function(){
+            $('#email').focus();
+        });
+    </script>
+{% end %}

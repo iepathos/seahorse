@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import logging
 import argparse
 import threading
 from tornado.gen import coroutine
@@ -13,6 +14,9 @@ __author__ = 'Glen Baker <iepathos@gmail.com>'
 __version__ = '0.4-dev'
 
 
+log = logging.getLogger('seahorse')
+
+
 @coroutine
 def build_tables():
     """Builds tables and then stops current IOLoop"""
@@ -23,7 +27,7 @@ def build_tables():
 @coroutine
 def rethink_setup():
     yield setup_tables()
-    print('Starting RethinkDB listener')
+    log.info('Starting RethinkDB listener')
     threading.Thread(target=rethink_listener).start()
 
 

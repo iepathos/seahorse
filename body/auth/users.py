@@ -12,9 +12,18 @@ def add_user(conn, email, password):
             'id': email,
             'password': hash,
             'funds': 0,
+            'activated': False,
             'is_admin': False
         }).run(conn)
     return insert
+
+
+@coroutine
+def activate_user(conn, email):
+    update = yield r.table('users').get(email).update({
+            'activated': True
+        }).run(conn)
+    return update
 
 
 @coroutine

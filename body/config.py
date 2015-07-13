@@ -15,11 +15,13 @@ DB_NAME = 'test'
 
 SECRET_KEY = 'seahorse'
 
-SEAHORSE_EMAIL = os.environ.get('SEAHORSE_EMAIL')
-SEAHORSE_EMAIL_PASS = os.environ.get('SEAHORSE_EMAIL_PASS')
+EMAIL_USERNAME = os.environ.get('EMAIL_USERNAME')
+EMAIL_PASS = os.environ.get('EMAIL_PASS')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 
+PROTOCOL = 'http'
+DOMAIN = '%s://localhost:8888' % PROTOCOL
 
 conf = {
     'debug': True,

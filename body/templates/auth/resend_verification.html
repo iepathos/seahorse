@@ -1,0 +1,22 @@
+{% extends '../templates/base.html' %}
+
+{% block title %}Resend Verification{% end %}
+
+{% block content %}
+    <div>
+        <div>
+            <h1>[resend verification]</h1>
+            <p>All of ye' brave seadogs must await the rising tide.</p>
+            {% include 'auth/_resend_verification_form.html' %}
+        </div>
+    </div>
+{% end %}
+
+
+{% block extra_js %}
+    <script>
+        $(document).ready(function(){
+            $('#email').focus();
+        });
+    </script>
+{% end %}

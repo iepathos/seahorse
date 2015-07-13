@@ -3,8 +3,10 @@ import rethinkdb as r
 from functools import partial
 from tornado.ioloop import IOLoop
 from tornado.gen import coroutine
+import logging
 from .config import RETHINK_HOST, RETHINK_PORT, DB_NAME
 
+log = logging.getLogger('seahorse.db')
 
 LISTENERS = []
 
@@ -39,9 +41,9 @@ def make_table(name):
     conn = yield get_db_conn()
     try:
         yield r.table_create(name).run(conn)
-        print("Table %s created successfully." % name)
+        log.info("Table %s created successfully." % name)
     except r.RqlRuntimeError:
-        print("Table %s already exists... skipping." % name)
+        log.info("Table %s already exists... skipping." % name)
 
 
 @coroutine

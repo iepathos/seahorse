@@ -1,4 +1,4 @@
-<form action="/login/" method="post" id="login_form" class='pure-form'>
+<form action="/login/" method="post" id="login_form">
     {% module xsrf_form_html() %}
     <fieldset>
         <label for="email">Email</label>
@@ -15,7 +15,7 @@
     </fieldset>
 
     <div id="form_btn">
-        <input id="signin-btn" class="pure-button pure-button-primary" type="submit" value="Login" tabindex="3">
-        <a href="/register/" class='pure-button pure-button-primary'>Register</a>
+        <a href="/register/">Register</a>
+        <input id="signin-btn" type="submit" value="Login" tabindex="3">
     </div>
 </form>

@@ -5,12 +5,49 @@ from react import jsx
 from passlib.hash import pbkdf2_sha256
 from itsdangerous import TimestampSigner
 from .config import TEMPLATES_DIR, JS_DIR, JSX_DIR, SECRET_KEY
+from .config import EMAIL_USERNAME, EMAIL_PASS, \
+                    EMAIL_HOST, EMAIL_PORT, DOMAIN
+from tornado.gen import coroutine
+from tornado_smtpclient.client import SMTPAsync
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from tornado.template import Loader
 
 
+loader = Loader(TEMPLATES_DIR)
+
+
+# CORE
+def raise_404(handler):
+    """Raises a 404 not found on a given handler."""
+    handler.clear()
+    handler.set_status(404)
+    handler.render(template('404.html'))
+
+
+def raise_403(handler):
+    """Raises a 403 forbidden on a given handler."""
+    handler.clear()
+    handler.set_status(403)
+    handler.render(template('403.html'))
+
+
+def template(path):
+    """Template pathing shortcut function."""
+    return os.path.join(TEMPLATES_DIR, path)
+
+
+WRONG_KEY = {
+    'error': 'Wrong key.',
+    'status_code': 403,
+}
+
+
+# AUTH
 def gen_signature(data):
     """Generates a TimestampSignature using config SECRET_KEY."""
     s = TimestampSigner(SECRET_KEY)
-    return s.sign(data)
+    return s.sign(str(data))
 
 
 def check_signature(signature, age):
@@ -20,15 +57,10 @@ def check_signature(signature, age):
 
 
 def is_valid_email(address):
-    """Returns True if email is valid format."""
+    """Returns True if given string matches valid email format."""
     if re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", address):
         return True
     return False
-
-
-def template(path):
-    """Template pathing shortcut function."""
-    return os.path.join(TEMPLATES_DIR, path)
 
 
 def encrypt(password):
@@ -42,18 +74,64 @@ def verify(password, hash):
     return pbkdf2_sha256.verify(password, hash)
 
 
-def raise_404(handler):
-    handler.clear()
-    handler.set_status(404)
-    handler.render(template('404.html'))
+# EMAIL
+
+@coroutine
+def _get_smtp_connection():
+    """Returns an open Asynchronous SMTP connection"""
+    s = SMTPAsync()
+    yield s.connect(EMAIL_HOST, EMAIL_PORT)
+    yield s.starttls()
+    yield s.login(EMAIL_USERNAME, EMAIL_PASS)
+    return s
 
 
-WRONG_KEY = {
-    'error': 'Wrong key.',
-    'status_code': 403,
-}
+@coroutine
+def send_email_string(_from, _to, msg):
+    """Asynchronously emails a string"""
+    s = yield _get_smtp_connection()
+    yield s.sendmail(_from, _to, msg)
+    yield s.quit()
 
 
+@coroutine
+def seamail(to, msg):
+    """Sends an email Asynchronously from the SERVER_EMAIL."""
+    yield send_email_string(EMAIL_USERNAME, to, msg)
+
+
+def create_email_msg(subject, _from, _to, text, html):
+    """Creates a Multipart Email Message"""
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = subject
+    msg['From'] = _from
+    msg['To'] = _to
+
+    part1 = MIMEText(str(text), 'plain')
+    part2 = MIMEText(str(html), 'html')
+    msg.attach(part1)
+    msg.attach(part2)
+    return msg
+
+
+def seamail_msg(subject, to, text, html):
+    return create_email_msg(subject, EMAIL_USERNAME, to, text, html)
+
+
+@coroutine
+def send_verification_email(email):
+    signature = gen_signature(email)
+    text = "%s/verify/%s" % (DOMAIN, signature)
+    html = loader.load("auth/verification_email.html").generate(
+                        domain=DOMAIN,
+                        signature=signature
+                    )
+
+    msg = seamail_msg('Verify Your Email Address', email, text, html)
+    yield seamail(email, str(msg.as_string()))
+
+
+# JSX
 def rename_jsx(jsx_file):
     """Renames a .jsx filename to .js"""
     return str(jsx_file)[:-3]+'js'

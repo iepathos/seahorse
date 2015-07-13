@@ -1,0 +1,15 @@
+<form action="/verify/" method="post" id="resend_verification_form">
+    {% module xsrf_form_html() %}
+    <fieldset>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="text" value="">
+    </fieldset>
+
+    <fieldset>
+        <span class="error">{{ error }}</span>
+    </fieldset>
+
+    <div id="form_btn">
+        <input id="resend-verification-btn" type="submit" value="Resend Email Verification" tabindex="3">
+    </div>
+</form>

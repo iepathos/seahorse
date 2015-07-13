@@ -1,9 +1,13 @@
+# -*- coding: utf-8 -*-
 from tornado.gen import coroutine
 from tornado.log import access_log
 from tornado.escape import json_encode
 from ..handlers import BaseHandler
-from ..utils import template, is_valid_email
-from .users import verify_user, add_user
+from ..utils import template, is_valid_email, \
+                    gen_signature, check_signature, \
+                    seamail_msg, loader, send_verification_email
+from .users import verify_user, add_user, activate_user
+from ..config import DOMAIN, TEMPLATES_DIR
 
 
 class AuthBaseHandler(BaseHandler):
@@ -28,18 +32,45 @@ class RegistrationHandler(AuthBaseHandler):
             error = 'Please enter a valid email address'
             self.render(template('auth/register.html'), error=error)
 
-        # TODO: send verification email
+        yield send_verification_email(email)
 
         rdb = yield add_user(self.db, email, password)
         if rdb.get('first_error') is None:
             # user added successfully
-            access_log.info('%s registered and logged in.' % email)
-            self.set_current_user(email)
-            self.redirect('/')
+            access_log.info('%s registered and verification email sent.' % email)
+            self.render(template('auth/verify_email.html'))
         else:
             access_log.error(rdb.get('first_error'))
-            error = 'An error occurred adding user to database.'
+            error = 'An error occurred adding user to the database.'
             self.render(template('auth/register.html'), error=error)
+
+
+class VerificationHandler(AuthBaseHandler):
+
+    @coroutine
+    def get(self, code):
+        try:
+            email = check_signature(code, 86400)  # 24 hours
+        except:
+            error = 'Signature %s did not authenticate.' % code
+            access_log.error(error)
+            self.render(template('auth/signature_invalid.html'), error='')
+
+        email = str(email)
+        yield activate_user(self.db, email)
+        access_log.info('%s email verified, user account activated.' % email)
+        self.set_current_user(email)
+        self.redirect('/')
+
+    @coroutine
+    def post(self, code):
+        email = self.get_argument('email')
+        if not is_valid_email(email):
+            error = 'Please enter a valid email address'
+            self.render(template('auth/resend_verification.html'), error=error)
+        yield send_verification_email(email)
+        access_log.info('Sent email verification to %s' % email)
+        self.render(template('auth/verification_sent.html'), error='')
 
 
 class AuthLoginHandler(AuthBaseHandler):
