@@ -26,8 +26,8 @@ def get_db_conn():
 
 
 def get_db_conn_synchronous():
-    """Returns a RethinkDB connection, synchronous - mostly for testing"""
-    r.set_loop_type("tornado")
+    """Returns a RethinkDB connection, synchronous - mostly for testing
+    and management commands."""
     try:
         conn = r.connect(host=RETHINK_HOST,
                          port=RETHINK_PORT,
@@ -71,10 +71,6 @@ def rethink_listener():
         change = yield feed.next()
         msg = {}
         user = change['new_val']['id']
-        # if not change['old_val']:
-        #     msg['funds'] = change['new_val']['funds']
-        # elif change['new_val']['funds'] != change['old_val']['funds']:
-        #     msg['funds'] = change['new_val']['funds']
 
         # add_feed(msg, change, 'funds')
 

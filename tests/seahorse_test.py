@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from body.mind import make_app
-from body.db import get_db_conn_synchronous
+from seahorse.mind import make_app
+from seahorse.db import get_db_conn_synchronous
 from tornado.testing import AsyncHTTPTestCase
 
 
