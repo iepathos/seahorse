@@ -39,5 +39,5 @@ workon project_name
 pip install -r requirements.txt
 bower install
 rethinkdb &
-./seahorse.py --run
+./manage.py --run
 ````
