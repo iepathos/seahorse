@@ -6,7 +6,6 @@ from ..utils import encrypt, verify
 
 @coroutine
 def add_user(conn, email, raw_password):
-    # encrypt password
     hash = encrypt(raw_password)
     insert = yield r.table('users').insert({
             'id': email,
@@ -24,6 +23,13 @@ def activate_user(conn, email):
             'activated': True
         }).run(conn)
     return update
+
+
+@coroutine
+def is_activated(conn, email):
+    """Returns True if the user is activated, False otherwise."""
+    user = yield r.table('users').get(email).run(conn)
+    return user.get('activated', 'False')
 
 
 @coroutine
@@ -50,9 +56,10 @@ def change_password(conn, email, raw_password):
 
 @coroutine
 def make_admin(conn, email):
-    yield r.table('users').get(email).update({
+    update = yield r.table('users').get(email).update({
             'is_admin': True
         }).run(conn)
+    return update
 
 
 @coroutine

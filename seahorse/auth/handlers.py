@@ -7,7 +7,7 @@ from ..utils import template, is_valid_email, \
                     check_signature, send_verification_email, \
                     gen_random_string, send_reset_password_email
 from .users import verify_user, add_user, activate_user, \
-                   change_password
+                   change_password, is_activated
 
 
 class AuthBaseHandler(BaseHandler):
@@ -76,9 +76,11 @@ class EmailVerificationHandler(AuthBaseHandler):
 class PasswordResetHandler(AuthBaseHandler):
 
     def get(self):
-        pass
+        error = ''
+        self.render(template('auth/reset_password.html'), error=error)
 
-    def post(self, email):
+    @coroutine
+    def post(self):
         email = self.get_argument('email')
         if not is_valid_email(email):
             error = 'Please enter a valid email address'
@@ -119,9 +121,16 @@ class LoginHandler(AuthBaseHandler):
         password = self.get_argument("password", "")
         auth = yield verify_user(self.db, email, password)
         if auth:
-            access_log.info('%s logged in.' % email)
-            self.set_current_user(email)
-            self.redirect(self.get_argument("next", u"/"))
+            # check if user has verfied their email address
+            activated = yield is_activated(self.db, email)
+            if activated:
+                access_log.info('%s logged in.' % email)
+                self.set_current_user(email)
+                self.redirect(self.get_argument("next", u"/"))
+            else:
+                access_log.info('%s attempted login, but email not verified, re-sending verification email.' % email)
+                yield send_verification_email(email)
+                self.render(template("auth/verify_email.html"))
         else:
             access_log.info('%s failed login.' % email)
             error = "Login incorrect"
