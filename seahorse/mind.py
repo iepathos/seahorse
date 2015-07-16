@@ -2,7 +2,7 @@
 from tornado.web import StaticFileHandler, Application
 from tornado.log import enable_pretty_logging
 from tornado.gen import coroutine
-from .config import conf, check_config
+from .config import conf, PORT, check_config
 from .handlers import HomeHandler, DataSyncHandler
 from .auth.handlers import RegistrationHandler, \
                            EmailVerificationHandler, \
@@ -32,15 +32,15 @@ class Seahorse(Application):
         self.db = db_conn
 
 
-def make_app(db_conn):
+def make_app(db_conn, config):
     enable_pretty_logging()
     check_config()
-    return Seahorse(config=conf, db_conn=db_conn)
+    return Seahorse(config=config, db_conn=db_conn)
 
 
 @coroutine
 def run_server():
     """Runs a development server."""
     db_conn = yield get_db_conn()
-    seahorse = make_app(db_conn)
-    seahorse.listen(8888)
+    seahorse = make_app(db_conn, conf)
+    seahorse.listen(PORT)

@@ -6,7 +6,7 @@ from tornado.ioloop import IOLoop
 from seahorse.mind import run_server
 from seahorse.utils import jsx_compile
 from seahorse.db import build_tables, rethink_setup
-from seahorse.auth.management import add_user
+from seahorse.auth.management import add_user, delete_user
 
 
 __author__ = 'Glen Baker <iepathos@gmail.com>'
@@ -45,18 +45,19 @@ if __name__ == "__main__":
         IOLoop.current().run_sync(build_tables)
 
     elif args.add_user:
-        username = args.add_user[0]
+        email = args.add_user[0]
         password = args.add_user[1]
-        insert = add_user(username, password)
+        insert = add_user(email, password)
         if insert.get('errors') != 0:
-            log.error('An error occured trying to add user %s to the database' % username)
+            log.error('An error occured trying to add user %s to the database' % email)
             log.error(insert)
         else:
-            log.info('Successfully added user %s to the database.' % username)
+            log.info('Successfully added user %s to the database.' % email)
             log.info(insert)
 
     elif args.delete_user:
-        username = args.add_user[0]
-        password = args.add_user[1]
+        email = args.delete_user[0]
+        delete_user(email)
+        log.info('Successfully deleted user %s from the database.' % email)
     else:
         parser.print_help()

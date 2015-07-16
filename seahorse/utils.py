@@ -106,8 +106,8 @@ def create_email_msg(subject, _from, _to, text, html):
     msg['From'] = _from
     msg['To'] = _to
 
-    part1 = MIMEText(text, 'plain')
-    part2 = MIMEText(html, 'html')
+    part1 = MIMEText(str(text), 'plain')
+    part2 = MIMEText(html.decode('utf-8'), 'html')
     msg.attach(part1)
     msg.attach(part2)
     return msg

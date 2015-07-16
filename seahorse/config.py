@@ -25,7 +25,11 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 
 PROTOCOL = 'http'
-DOMAIN = '%s://localhost:8888' % PROTOCOL
+HOST = os.environ.get('HOST', 'localhost')
+PORT = os.environ.get('PORT', '8888')
+DOMAIN = '%s://%s:%s' % (PROTOCOL, HOST, PORT)
+
+
 
 conf = {
     'debug': True,

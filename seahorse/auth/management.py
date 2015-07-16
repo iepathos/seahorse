@@ -5,9 +5,10 @@ from ..utils import encrypt
 import rethinkdb as r
 
 
-# def delete_user(user_id):
-#     conn = get_db_conn_synchronous()
-#     yield _delete_user(conn, user_id)
+def delete_user(email):
+    conn = get_db_conn_synchronous()
+    insert = r.table('users').get(email).delete().run(conn)
+    return insert
 
 
 def add_user(email, raw_pass):
