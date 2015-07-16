@@ -24,14 +24,14 @@ def raise_404(handler):
     """Raises a 404 not found on a given handler."""
     handler.clear()
     handler.set_status(404)
-    handler.render(template('404.html'))
+    handler.render(template('errors/404.html'))
 
 
 def raise_403(handler):
     """Raises a 403 forbidden on a given handler."""
     handler.clear()
     handler.set_status(403)
-    handler.render(template('403.html'))
+    handler.render(template('errors/403.html'))
 
 
 def template(path):

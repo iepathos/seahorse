@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+import logging
+import threading
 import rethinkdb as r
 from functools import partial
 from tornado.ioloop import IOLoop
 from tornado.gen import coroutine
-import threading
-import logging
 from .config import RETHINK_HOST, RETHINK_PORT, DB_NAME
 
 log = logging.getLogger('seahorse.db')
