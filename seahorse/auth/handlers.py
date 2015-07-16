@@ -135,10 +135,9 @@ class LoginHandler(AuthBaseHandler):
             error = self.get_argument("error")
         except:
             error = ""
-        user = self.get_current_user()
         self.render(template("auth/login.html"),
                     error=error,
-                    user=user)
+                    user=self.get_current_user())
 
     @coroutine
     def post(self):
@@ -158,11 +157,9 @@ class LoginHandler(AuthBaseHandler):
                 self.render(template("auth/verify_email.html"))
         else:
             access_log.info('%s failed login.' % email)
-            error = "Login incorrect"
-            user = self.get_current_user()
             self.render(template("auth/login.html"),
-                        error=error,
-                        user=user)
+                        error="Login incorrect",
+                        user=self.get_current_user())
 
 
 class LogoutHandler(BaseHandler):
