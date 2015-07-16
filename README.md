@@ -13,9 +13,9 @@ Seahorse is in active development and could change architecture and library choi
 
 + JSX pre-compile
 
-
-
 + Built on the latest Python, Tornado, RethinkDB and React libraries
+
++ Bower frontend package management
 
 
 
