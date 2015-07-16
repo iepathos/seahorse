@@ -29,8 +29,6 @@ HOST = os.environ.get('HOST', 'localhost')
 PORT = os.environ.get('PORT', '8888')
 DOMAIN = '%s://%s:%s' % (PROTOCOL, HOST, PORT)
 
-
-
 conf = {
     'debug': True,
     'template_path': TEMPLATES_DIR,
@@ -44,6 +42,7 @@ conf = {
 
 
 def check_config():
+    """Runs safety and functionality checks on project configuration."""
     # Production/Debug Check
     if not conf.get('debug') and SECRET_KEY == 'seahorse':
         log.warn('debug is set to False, but SECRET_KEY is still default.')
