@@ -54,7 +54,6 @@ if __name__ == "__main__":
         else:
             log.info('Successfully added user %s to the database.' % email)
             log.info(insert)
-
     elif args.delete_user:
         email = args.delete_user[0]
         delete_user(email)
