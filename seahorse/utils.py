@@ -145,9 +145,7 @@ def send_reset_password_email(email, tmp_pass):
 def send_password_changed_email(email):
     text = "Your password was changed.  If you did not request this change, \
             contact our tech support immediately."
-    html = loader.load("auth/password_changed_email.html").generate(
-                        password=tmp_pass
-                    )
+    html = loader.load("auth/password_changed_email.html").generate()
 
     msg = seamail_msg('Your Password Was Changed', email, text, html)
     yield seamail(email, str(msg.as_string()))

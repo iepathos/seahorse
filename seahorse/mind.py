@@ -7,6 +7,7 @@ from .handlers import HomeHandler, DataSyncHandler
 from .auth.handlers import RegistrationHandler, \
                            EmailVerificationHandler, \
                            PasswordResetHandler, \
+                           PasswordChangeHandler, \
                            LoginHandler, \
                            LogoutHandler
 from .db import get_db_conn
@@ -20,6 +21,7 @@ class Seahorse(Application):
             (r'/register/', RegistrationHandler),
             (r'/verify/([^/]*)', EmailVerificationHandler),
             (r'/reset/password/', PasswordResetHandler),
+            (r'/change/password/', PasswordChangeHandler),
             (r'/login/', LoginHandler),
             (r'/logout/', LogoutHandler),
             (r'/datasync/', DataSyncHandler),

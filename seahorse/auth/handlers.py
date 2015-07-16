@@ -5,9 +5,14 @@ from tornado.escape import json_encode
 from ..handlers import BaseHandler
 from ..utils import template, is_valid_email, \
                     check_signature, send_verification_email, \
-                    gen_random_string, send_reset_password_email
+                    gen_random_string, send_reset_password_email, \
+                    send_password_changed_email
 from .users import verify_user, add_user, activate_user, \
                    change_password, is_activated
+from tornado.web import authenticated
+import logging
+
+log = logging.getLogger('seahorse.auth.handlers')
 
 
 class AuthBaseHandler(BaseHandler):
@@ -56,7 +61,7 @@ class EmailVerificationHandler(AuthBaseHandler):
             access_log.error(error)
             self.render(template('auth/signature_invalid.html'), error='')
 
-        email = str(email)
+        email = str(email)[2:-1]
         yield activate_user(self.db, email)
         access_log.info('%s email verified, user account activated and logged in.' % email)
         self.set_current_user(email)
@@ -94,13 +99,33 @@ class PasswordResetHandler(AuthBaseHandler):
         self.redirect('/login/')
 
 
-class ChangePasswordHandler(AuthBaseHandler):
+class PasswordChangeHandler(AuthBaseHandler):
 
+    @authenticated
     def get(self):
-        pass
+        error = ''
+        self.render(template('auth/change_password.html'), error=error)
 
-    def post(self, email):
-        pass
+    @authenticated
+    @coroutine
+    def post(self):
+        old_pass = self.get_argument('old_password')
+        new_pass = self.get_argument('new_password')
+        new_pass_verify = self.get_argument('new_password1')
+        email = self.get_current_user()
+        if new_pass != new_pass_verify:
+            error = 'New passwords must match'
+            self.render(template('auth/change_password.html'), error=error)
+
+        auth = yield verify_user(self.db, email, old_pass)
+        if auth:
+            change_password(self.db, email, new_pass)
+            yield send_password_changed_email(email)
+            self.redirect('/')
+        else:
+            access_log.info('Change password requested by %s, but wrong old password' % email)
+            error = 'Wrong password, try again?'
+            self.render(template('auth/change_password.html'), error=error)
 
 
 class LoginHandler(AuthBaseHandler):
@@ -117,8 +142,8 @@ class LoginHandler(AuthBaseHandler):
 
     @coroutine
     def post(self):
-        email = self.get_argument("email", "")
-        password = self.get_argument("password", "")
+        email = self.get_argument("email")
+        password = self.get_argument("password")
         auth = yield verify_user(self.db, email, password)
         if auth:
             # check if user has verfied their email address
