@@ -145,7 +145,6 @@ class LoginHandler(AuthBaseHandler):
         password = self.get_argument("password")
         auth = yield verify_user(self.db, email, password)
         if auth:
-            # check if user has verfied their email address
             activated = yield is_activated(self.db, email)
             if activated:
                 access_log.info('%s logged in.' % email)
