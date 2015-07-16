@@ -36,9 +36,8 @@ class HomeHandler(BaseHandler):
     @authenticated
     @coroutine
     def get(self):
-        user = self.get_current_user()
         self.render(template('home.html'),
-                    user=user)
+                    user=self.get_current_user())
 
 
 class DataSyncHandler(BaseWebSocketHandler):
