@@ -1,5 +1,5 @@
 {
-    "directory": "body/static/bower_components/",
+    "directory": "seahorse/static/bower_components/",
     "analytics": false,
     "timeout": 120000
 }
