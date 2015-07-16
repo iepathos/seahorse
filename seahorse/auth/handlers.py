@@ -41,8 +41,8 @@ class RegistrationHandler(AuthBaseHandler):
 
         rdb = yield add_user(self.db, email, password)
         if rdb.get('first_error') is None:
-            # user added successfully
-            access_log.info('%s registered and verification email sent.' % email)
+            access_log.info('%s registered and \
+                            verification email sent.' % email)
             self.render(template('auth/verify_email.html'))
         else:
             access_log.error(rdb.get('first_error'))
@@ -63,7 +63,8 @@ class EmailVerificationHandler(AuthBaseHandler):
 
         email = str(email)[2:-1]
         yield activate_user(self.db, email)
-        access_log.info('%s email verified, user account activated and logged in.' % email)
+        access_log.info('%s email verified, \
+                        user account activated and logged in.' % email)
         self.set_current_user(email)
         self.redirect('/')
 
@@ -90,11 +91,9 @@ class PasswordResetHandler(AuthBaseHandler):
         if not is_valid_email(email):
             error = 'Please enter a valid email address'
             self.render(template('auth/reset_password.html'), error=error)
-        # generate temporary password
+
         tmp_pass = gen_random_string()
-
         change_password(self.db, email, tmp_pass)
-
         yield send_reset_password_email(email, tmp_pass)
         self.redirect('/login/')
 
@@ -123,7 +122,8 @@ class PasswordChangeHandler(AuthBaseHandler):
             yield send_password_changed_email(email)
             self.redirect('/')
         else:
-            access_log.info('Change password requested by %s, but wrong old password' % email)
+            access_log.info('Change password requested by %s, \
+                            but wrong old password' % email)
             error = 'Wrong password, try again?'
             self.render(template('auth/change_password.html'), error=error)
 
@@ -152,7 +152,9 @@ class LoginHandler(AuthBaseHandler):
                 self.set_current_user(email)
                 self.redirect(self.get_argument("next", u"/"))
             else:
-                access_log.info('%s attempted login, but email not verified, re-sending verification email.' % email)
+                access_log.info('%s attempted login, \
+                                but email not verified, \
+                                re-sending verification email.' % email)
                 yield send_verification_email(email)
                 self.render(template("auth/verify_email.html"))
         else:
