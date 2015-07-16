@@ -5,9 +5,9 @@ from ..utils import encrypt, verify
 
 
 @coroutine
-def add_user(conn, email, password):
+def add_user(conn, email, raw_password):
     # encrypt password
-    hash = encrypt(password)
+    hash = encrypt(raw_password)
     insert = yield r.table('users').insert({
             'id': email,
             'password': hash,
@@ -37,6 +37,15 @@ def verify_user(conn, email, password):
     if data is not None:
         return verify(password, data['password'])
     return False
+
+
+@coroutine
+def change_password(conn, email, raw_password):
+    hash = encrypt(raw_password)
+    update = yield r.table('users').get(email).update({
+            'password': hash
+        }).run(conn)
+    return update
 
 
 @coroutine

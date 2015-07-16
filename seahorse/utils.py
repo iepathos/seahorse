@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import re
+import string
+import random
 from react import jsx
 from passlib.hash import pbkdf2_sha256
 from itsdangerous import TimestampSigner
@@ -37,13 +39,11 @@ def template(path):
     return os.path.join(TEMPLATES_DIR, path)
 
 
-WRONG_KEY = {
-    'error': 'Wrong key.',
-    'status_code': 403,
-}
-
-
 # AUTH
+def gen_random_string(size=8, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
 def gen_signature(data):
     """Generates a TimestampSignature using config SECRET_KEY."""
     s = TimestampSigner(SECRET_KEY)
@@ -75,7 +75,6 @@ def verify(password, hash):
 
 
 # EMAIL
-
 @coroutine
 def _get_smtp_connection():
     """Returns an open Asynchronous SMTP connection"""
@@ -125,6 +124,17 @@ def send_verification_email(email):
     html = loader.load("auth/verification_email.html").generate(
                         domain=DOMAIN,
                         signature=signature
+                    )
+
+    msg = seamail_msg('Verify Your Email Address', email, text, html)
+    yield seamail(email, str(msg.as_string()))
+
+
+@coroutine
+def send_reset_password_email(email, tmp_pass):
+    text = "Your temporary password: %s" % tmp_pass
+    html = loader.load("auth/reset_password_email.html").generate(
+                        password=tmp_pass
                     )
 
     msg = seamail_msg('Verify Your Email Address', email, text, html)

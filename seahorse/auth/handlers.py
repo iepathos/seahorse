@@ -4,10 +4,10 @@ from tornado.log import access_log
 from tornado.escape import json_encode
 from ..handlers import BaseHandler
 from ..utils import template, is_valid_email, \
-                    gen_signature, check_signature, \
-                    seamail_msg, loader, send_verification_email
-from .users import verify_user, add_user, activate_user
-from ..config import DOMAIN, TEMPLATES_DIR
+                    check_signature, send_verification_email, \
+                    gen_random_string, send_reset_password_email
+from .users import verify_user, add_user, activate_user, \
+                   change_password
 
 
 class AuthBaseHandler(BaseHandler):
@@ -45,7 +45,7 @@ class RegistrationHandler(AuthBaseHandler):
             self.render(template('auth/register.html'), error=error)
 
 
-class VerificationHandler(AuthBaseHandler):
+class EmailVerificationHandler(AuthBaseHandler):
 
     @coroutine
     def get(self, code):
@@ -73,7 +73,35 @@ class VerificationHandler(AuthBaseHandler):
         self.render(template('auth/verification_sent.html'), error='')
 
 
-class AuthLoginHandler(AuthBaseHandler):
+class PasswordResetHandler(AuthBaseHandler):
+
+    def get(self):
+        pass
+
+    def post(self, email):
+        email = self.get_argument('email')
+        if not is_valid_email(email):
+            error = 'Please enter a valid email address'
+            self.render(template('auth/reset_password.html'), error=error)
+        # generate temporary password
+        tmp_pass = gen_random_string()
+
+        change_password(self.db, email, tmp_pass)
+
+        yield send_reset_password_email(email, tmp_pass)
+        self.redirect('/login/')
+
+
+class ChangePasswordHandler(AuthBaseHandler):
+
+    def get(self):
+        pass
+
+    def post(self, email):
+        pass
+
+
+class LoginHandler(AuthBaseHandler):
 
     def get(self):
         try:
@@ -103,7 +131,7 @@ class AuthLoginHandler(AuthBaseHandler):
                         user=user)
 
 
-class AuthLogoutHandler(BaseHandler):
+class LogoutHandler(BaseHandler):
 
     def get(self):
         user = self.get_current_user()

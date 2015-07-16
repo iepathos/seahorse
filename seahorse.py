@@ -5,9 +5,9 @@ import argparse
 import threading
 from tornado.gen import coroutine
 from tornado.ioloop import IOLoop
-from body.mind import make_app
-from body.utils import jsx_compile
-from body.db import get_db_conn, setup_tables, rethink_listener
+from seahorse.mind import make_app
+from seahorse.utils import jsx_compile
+from seahorse.db import get_db_conn, setup_tables, rethink_listener
 
 
 __author__ = 'Glen Baker <iepathos@gmail.com>'
