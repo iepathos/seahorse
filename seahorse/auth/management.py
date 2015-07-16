@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from tornado.gen import coroutine
 from ..db import get_db_conn_synchronous
 from ..utils import encrypt
 import rethinkdb as r
@@ -8,6 +7,7 @@ import rethinkdb as r
 def delete_user(email):
     conn = get_db_conn_synchronous()
     insert = r.table('users').get(email).delete().run(conn)
+    conn.close()
     return insert
 
 
@@ -21,6 +21,7 @@ def add_user(email, raw_pass):
             'activated': False,
             'is_admin': False
         }).run(conn)
+    conn.close()
     return insert
 
 
@@ -29,4 +30,5 @@ def activate_user(email):
     update = r.table('users').get(email).update({
             'activated': True
         }).run(conn)
+    conn.close()
     return update
