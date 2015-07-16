@@ -52,6 +52,15 @@ def setup_tables():
     yield make_table('users')
 
 
+def add_feed(msg, change, addition):
+    """Adds an element to a given RethinkDB feed.  Returns the msg and feed."""
+    if not change['old_val']:
+        msg[addition] = change['new_val'][addition]
+    elif change['new_val'][addition] != change['old_val'][addition]:
+        msg[addition] = change['new_val'][addition]
+    return msg, change
+
+
 @coroutine
 def rethink_listener():
     db_conn = yield get_db_conn()
@@ -66,6 +75,8 @@ def rethink_listener():
         #     msg['funds'] = change['new_val']['funds']
         # elif change['new_val']['funds'] != change['old_val']['funds']:
         #     msg['funds'] = change['new_val']['funds']
+
+        # add_feed(msg, change, 'funds')
 
         for client in LISTENERS:
             if client.get_current_user() == user:
