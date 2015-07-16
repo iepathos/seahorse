@@ -20,12 +20,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
             description='Seahorse Asynchronous Web Server'
         )
-    parser.add_argument('--run', dest='run', action='store_true',
+    parser.add_argument('-r', '--run', dest='run', action='store_true',
                         help='Runs Seahorse server')
     parser.add_argument('--build_tables', dest='build_tables',
                         action='store_true', help='Build RethinkDB tables')
 
-    parser.add_argument('--jsx_compile', dest='jsx', action='store_true',
+    parser.add_argument('-jsx', '--jsx_compile', dest='jsx',
+                        action='store_true',
                         help='Compile JSX static files into JS files')
 
     # user management

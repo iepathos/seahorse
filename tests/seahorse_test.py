@@ -41,7 +41,8 @@ class SeahorseTestCase(AsyncHTTPTestCase):
         self.db.close()
 
     def get_app(self):
-        self.db = get_db_conn_synchronous()
+        if not hasattr(self, 'db'):
+            self.db = get_db_conn_synchronous()
         app = make_app(self.db, test_conf)
         return app
 
