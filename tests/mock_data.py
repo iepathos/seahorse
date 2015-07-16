@@ -9,12 +9,12 @@ password = 'test'
 hash = encrypt(password)
 
 
-def create_test_users():
+def create_users():
     add_user('new_user', password)
     add_user('activated_user', password)
     activate_user('activated_user')
 
 
-def delete_test_users():
+def delete_users():
     delete_user('new_user')
     delete_user('activated_user')

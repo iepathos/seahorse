@@ -55,3 +55,8 @@ bower install
 rethinkdb &
 ./manage.py --run
 ````
+
+Run tests
+````bash
+nose
+````
