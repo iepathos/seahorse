@@ -1,17 +1,31 @@
 Seahorse v0.4-dev
 ----------------
-Seahorse is a fullstack asynchronous web server.  It is built with speed, realtime behavior and scalability in mind.  RethinkDB is capable of pushing changes to the Seahorse web app when data is changed.  Seahorse can notify clients through a data sync websocket.  Frontend uses React.js on the frontend, taking advantage of the excellent virtual dom manipulation.
+Seahorse is a fullstack asynchronous web server.  It is built with speed, realtime behavior and scalability in mind.  RethinkDB is capable of pushing changes to the Seahorse web app when data is changed.  Seahorse can notify clients through a data sync websocket.  Frontend uses React.js to take advantage of the excellent virtual dom manipulation.
 
 Seahorse is in active development and could change architecture and library choices drastically as it progresses.
 
-Built with Python 3.4.3
+##Features
++ User Registration/Login/Logout
++ Email Backend and Verification
+    Email verification uses timestamps generated using the config secret key.  This allows us to verify user email addresses without taking up any space in a database.  Also, allows us to have a builtin timestamp for the email check.  By default the expiration is 24 hours.
++ Password Reset and Password Change Handlers
++ Password encryption
+
++ JSX pre-compile
+
+
+
++ Built on the latest Python, Tornado, RethinkDB and React libraries
+
+
 
 Python Libraries
 ----------------
-+ Tornado
-+ RethinkDB
-+ ItsDangerous
-+ Passlib
++ Python 3.4.3
++ Tornado 4.2
++ RethinkDB 2.0
++ ItsDangerous 0.24
++ Passlib 1.6.2
 
 
 Javascript Libraries

@@ -22,3 +22,11 @@ def add_user(email, raw_pass):
             'is_admin': False
         }).run(conn)
     return insert
+
+
+def activate_user(email):
+    conn = get_db_conn_synchronous()
+    update = r.table('users').get(email).update({
+            'activated': True
+        }).run(conn)
+    return update

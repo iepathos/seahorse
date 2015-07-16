@@ -3,6 +3,8 @@ import os
 from seahorse.mind import make_app
 from seahorse.db import get_db_conn_synchronous
 from tornado.testing import AsyncHTTPTestCase
+from tests.mock_data import create_test_users, delete_test_users
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 APP_DIR = os.path.join(BASE_DIR, 'seahorse')
@@ -27,9 +29,20 @@ test_conf = {
 
 class SeahorseTestCase(AsyncHTTPTestCase):
 
+    def setUp(self):
+        super(SeahorseTestCase, self).setUp()
+        self.db = get_db_conn_synchronous()
+        self.app = self.get_app()
+        create_test_users()
+
+    def tearDown(self):
+        super(SeahorseTestCase, self).tearDown()
+        delete_test_users()
+        self.db.close()
+
     def get_app(self):
-        db_conn = get_db_conn_synchronous()
-        app = make_app(db_conn, test_conf)
+        self.db = get_db_conn_synchronous()
+        app = make_app(self.db, test_conf)
         return app
 
     def test_unauthenticated_home(self):
