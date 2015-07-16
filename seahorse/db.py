@@ -39,6 +39,7 @@ def get_db_conn_synchronous():
 
 @coroutine
 def make_table(name):
+    """Creates a RethinkDB table with the given name."""
     conn = yield get_db_conn()
     try:
         yield r.table_create(name).run(conn)
@@ -63,6 +64,7 @@ def add_feed(msg, change, addition):
 
 @coroutine
 def rethink_listener():
+    """RethinkDB listener feeds changes to the websocket listeners."""
     db_conn = yield get_db_conn()
     users = r.table('users')
     io_loop = IOLoop.instance()
@@ -81,13 +83,14 @@ def rethink_listener():
 
 @coroutine
 def build_tables():
-    """Builds tables and then stops current IOLoop"""
+    """Builds tables and then stops current IOLoop."""
     yield setup_tables()
     IOLoop.current().stop()
 
 
 @coroutine
 def rethink_setup():
+    """Setup necessary RethinkDB tables and thread the change feed listener."""
     yield setup_tables()
     log.info('Starting RethinkDB listener')
     threading.Thread(target=rethink_listener).start()
