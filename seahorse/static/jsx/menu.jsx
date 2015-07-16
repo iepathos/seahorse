@@ -2,7 +2,9 @@ var Menu = React.createClass({
   render: function() {
     return (
       <p>
-        <a href="/logout/" class='pull-right'>logout</a>
+        <a href="/change/password/">change password</a>
+        &nbsp;
+        <a href="/logout/">logout</a>
       </p>
     );
   }
