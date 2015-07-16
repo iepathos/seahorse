@@ -105,8 +105,8 @@ class PasswordChangeHandler(AuthBaseHandler):
         error = ''
         self.render(template('auth/change_password.html'), error=error)
 
-    @authenticated
     @coroutine
+    @authenticated
     def post(self):
         old_pass = self.get_argument('old_password')
         new_pass = self.get_argument('new_password')
