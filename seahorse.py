@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 import logging
 import argparse
-import threading
-from tornado.gen import coroutine
 from tornado.ioloop import IOLoop
-from seahorse.mind import make_app
+from seahorse.mind import run_server
 from seahorse.utils import jsx_compile
-from seahorse.db import get_db_conn, setup_tables, rethink_listener
+from seahorse.db import build_tables, rethink_setup
 
 
 __author__ = 'Glen Baker <iepathos@gmail.com>'
@@ -15,27 +13,6 @@ __version__ = '0.4-dev'
 
 
 log = logging.getLogger('seahorse')
-
-
-@coroutine
-def build_tables():
-    """Builds tables and then stops current IOLoop"""
-    yield setup_tables()
-    IOLoop.current().stop()
-
-
-@coroutine
-def rethink_setup():
-    yield setup_tables()
-    log.info('Starting RethinkDB listener')
-    threading.Thread(target=rethink_listener).start()
-
-
-@coroutine
-def run_server():
-    db_conn = yield get_db_conn()
-    seahorse = make_app(db_conn)
-    seahorse.listen(8888)
 
 
 if __name__ == "__main__":
