@@ -170,12 +170,3 @@ class LogoutHandler(BaseHandler):
         access_log.info('%s logged out.' % user)
         self.clear_cookie("user")
         self.redirect(self.get_argument("next", "/"))
-
-auth_routes = [
-    (r'/register/', RegistrationHandler),
-    (r'/verify/([^/]*)', EmailVerificationHandler),
-    (r'/reset/password/', PasswordResetHandler),
-    (r'/change/password/', PasswordChangeHandler),
-    (r'/login/', LoginHandler),
-    (r'/logout/', LogoutHandler),
-]

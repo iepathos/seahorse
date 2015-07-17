@@ -4,7 +4,7 @@ from tornado.log import enable_pretty_logging
 from tornado.gen import coroutine
 from .config import conf, PORT, check_config
 from .handlers import HomeHandler, DataSyncHandler
-from .auth.handlers import auth_routes
+from .auth.routes import auth_routes
 from .db import get_db_conn
 
 
