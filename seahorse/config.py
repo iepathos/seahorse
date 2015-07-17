@@ -13,6 +13,8 @@ JSX_DIR = os.path.join(STATIC_DIR, 'jsx')
 CSS_DIR = os.path.join(STATIC_DIR, 'css')
 IMG_DIR = os.path.join(STATIC_DIR, 'img')
 
+MARKDOWN_DIR = os.path.join(STATIC_DIR, 'md')
+
 RETHINK_HOST = 'localhost'
 RETHINK_PORT = 28015
 DB_NAME = 'test'

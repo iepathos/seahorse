@@ -1,0 +1,19 @@
+{% extends '../templates/base.html' %}
+
+{% block title %}Blog{% end %}
+
+{% block content %}
+    <div>
+        <h1>[blog]</h1>
+        <ul>
+        {% for slug in slugs %}
+            <li><a href="/blog/{{ slug }}">{{ slug }}</a></li>
+        {% end %}
+        </ul>
+    </div>
+{% end %}
+
+
+{% block extra_js %}
+
+{% end %}

@@ -3,6 +3,7 @@ from .config import conf
 from .handlers import HomeHandler, \
                       DataSyncHandler
 from .auth.routes import auth_routes
+from .blog.routes import blog_routes
 from tornado.web import StaticFileHandler
 
 routes = [
@@ -13,3 +14,4 @@ routes = [
 ]
 
 routes += auth_routes
+routes += blog_routes
