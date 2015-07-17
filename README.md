@@ -11,6 +11,8 @@ Seahorse is in active development and could change architecture and library choi
 + Password Reset and Password Change Handlers
 + Password encryption
 
++ A markdown-based blog
+
 + JSX pre-compile
 + Nice initial logging setup
 + Nose tests
