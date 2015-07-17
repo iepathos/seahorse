@@ -18,7 +18,7 @@ class BaseHandler(RequestHandler):
     def get_current_user(self):
         username = self.get_secure_cookie("user")
         if username:
-            return username[1:-1].decode("utf-8")[2:-1]
+            return username.decode("utf-8")[1:-1]
         return None
 
 

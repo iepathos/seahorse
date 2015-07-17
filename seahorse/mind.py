@@ -1,26 +1,16 @@
 # -*- coding: utf-8 -*-
-from tornado.web import StaticFileHandler, Application
+from tornado.web import Application
 from tornado.log import enable_pretty_logging
 from tornado.gen import coroutine
 from .config import conf, PORT, check_config
-from .handlers import HomeHandler, DataSyncHandler
-from .auth.routes import auth_routes
+from .routes import routes
 from .db import get_db_conn
 
 
 class Seahorse(Application):
 
     def __init__(self, config, db_conn):
-        routes = [
-            (r'/', HomeHandler),
-            (r'/datasync/', DataSyncHandler),
-            (r'/static/(.*)', StaticFileHandler,
-             {'path': config['static_path']}),
-        ]
-        routes += auth_routes
-
         Application.__init__(self, routes, **config)
-
         self.db = db_conn
 
 
