@@ -5,7 +5,7 @@ import string
 import random
 from passlib.hash import pbkdf2_sha256
 from itsdangerous import TimestampSigner
-from .config import TEMPLATES_DIR, SECRET_KEY, \
+from .config import conf, TEMPLATES_DIR, SECRET_KEY, \
                     EMAIL_USERNAME, EMAIL_PASS, \
                     EMAIL_HOST, EMAIL_PORT, DOMAIN
 from tornado.gen import coroutine
@@ -35,7 +35,7 @@ def raise_403(handler):
 
 def template(path):
     """Template pathing shortcut function."""
-    return os.path.join(TEMPLATES_DIR, path)
+    return os.path.join(conf.get('template_path'), path)
 
 
 # AUTH
@@ -45,13 +45,13 @@ def gen_random_string(size=8, chars=string.ascii_uppercase + string.digits):
 
 def gen_signature(data):
     """Generates a TimestampSignature using config SECRET_KEY."""
-    s = TimestampSigner(SECRET_KEY)
+    s = TimestampSigner(conf.get('cookie_secret'))
     return s.sign(str(data))
 
 
 def check_signature(signature, age):
     """Checks whether a timestamp signature is valid and under a given age."""
-    s = TimestampSigner(SECRET_KEY)
+    s = TimestampSigner(conf.get('cookie_secret'))
     return s.unsign(signature, max_age=age)
 
 
@@ -78,9 +78,9 @@ def verify(password, hash):
 def _get_smtp_connection():
     """Returns an open Asynchronous SMTP connection"""
     s = SMTPAsync()
-    yield s.connect(EMAIL_HOST, EMAIL_PORT)
+    yield s.connect(conf.get('email_host'), conf.get('email_port'))
     yield s.starttls()
-    yield s.login(EMAIL_USERNAME, EMAIL_PASS)
+    yield s.login(conf.get('email_username'), conf.get('email_pass'))
     return s
 
 
@@ -95,7 +95,7 @@ def send_email_string(_from, _to, msg):
 @coroutine
 def seamail(to, msg):
     """Sends an email Asynchronously from the SERVER_EMAIL."""
-    yield send_email_string(EMAIL_USERNAME, to, msg)
+    yield send_email_string(conf.get('email_username'), to, msg)
 
 
 def create_email_msg(subject, _from, _to, text, html):
@@ -113,7 +113,7 @@ def create_email_msg(subject, _from, _to, text, html):
 
 
 def seamail_msg(subject, to, text, html):
-    return create_email_msg(subject, EMAIL_USERNAME, to, text, html)
+    return create_email_msg(subject, conf.get('email_username'), to, text, html)
 
 
 @coroutine

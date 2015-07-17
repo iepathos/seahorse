@@ -24,20 +24,7 @@ class SeahorseTestCase(AsyncHTTPTestCase):
         app = make_app(self.db, test_conf)
         return app
 
-    def test_unauthenticated_home(self):
-        url = '/'
-        self.http_client.fetch(self.get_url(url), self.stop)
-        response = self.wait()
-        # Unauthenticated user should be redirected to login with homepage next
-        self.assertTrue(
-            str(response.effective_url).endswith('/login/?next=%2F')
-        )
-
-    def test_login(self):
-        url = '/login/'
-        # test get
+    def assertGetReturns200(self, url):
         self.http_client.fetch(self.get_url(url), self.stop)
         response = self.wait()
         self.assertTrue(response.code == 200)
-
-        # test post

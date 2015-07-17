@@ -5,12 +5,14 @@ from .handlers import RegistrationHandler, \
                       PasswordChangeHandler, \
                       LoginHandler, \
                       LogoutHandler
+from ..config import conf
+
 
 auth_routes = [
     (r'/register/', RegistrationHandler),
     (r'/verify/([^/]*)', EmailVerificationHandler),
     (r'/reset/password/', PasswordResetHandler),
     (r'/change/password/', PasswordChangeHandler),
-    (r'/login/', LoginHandler),
+    (r'%s' % conf['login_url'], LoginHandler),
     (r'/logout/', LogoutHandler),
 ]

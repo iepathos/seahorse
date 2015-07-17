@@ -39,22 +39,26 @@ conf = {
     'xsrf_cookies': True,
     'cookie_secret': SECRET_KEY,
     'serve_traceback': True,
-    'login_url': '/login/'
+    'login_url': '/login/',
+    'email_username': EMAIL_USERNAME,
+    'email_pass': EMAIL_PASS,
+    'email_host': EMAIL_HOST,
+    'email_port': EMAIL_PORT,
 }
 
 
-def check_config():
+def check_config(config):
     """Runs safety and functionality checks on project configuration."""
     # Production/Debug Check
-    if not conf.get('debug') and SECRET_KEY == 'seahorse':
+    if not config.get('debug') and config.get('cookie_secret') == 'seahorse':
         log.warn('debug is set to False, but SECRET_KEY is still default.')
 
     # Email Config Check
-    if not EMAIL_USERNAME:
+    if not config.get('email_username'):
         log.error('EMAIL_USERNAME not found in environment.')
-    if not EMAIL_PASS:
+    if not config.get('email_pass'):
         log.error('EMAIL_PASS not found in environment.')
-    if not EMAIL_HOST:
+    if not config.get('email_host'):
         log.error('Missing EMAIL_HOST')
-    if not EMAIL_PORT:
+    if not config.get('email_port'):
         log.error('Missing EMAIL_PORT')

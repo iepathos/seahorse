@@ -26,7 +26,11 @@ test_conf = {
     'xsrf_cookies': False,
     'cookie_secret': SECRET_KEY,
     'serve_traceback': False,
-    'login_url': '/login/'
+    'login_url': '/login/',
+    'email_username': 'test@gmail.com',
+    'email_pass': 'test123',
+    'email_host': 'smtp.gmail.com',
+    'email_port': 587,
 }
 
 
