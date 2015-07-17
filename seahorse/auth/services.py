@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from tornado.gen import coroutine
 from ..utils import encrypt, verify
-from ..services import AsyncRethinkService
+from ..services import RethinkService, if_async
 
 
-class UsersService(AsyncRethinkService):
+class UsersService(RethinkService):
     table = 'users'
 
-    @coroutine
+    @if_async(coroutine)
     def new(self, id, raw_password):
         new_user = {
             'id': id,
@@ -15,32 +15,50 @@ class UsersService(AsyncRethinkService):
             'activated': False,
             'is_admin': False
         }
-        insert = yield self.insert(new_user)
+        if self.async:
+            insert = yield self.insert(new_user)
+        else:
+            insert = self.insert(new_user)
         return insert
 
-    @coroutine
+    @if_async(coroutine)
     def activate(self, id):
-        update = yield self.update(id, {'activated': True})
+        if self.async:
+            update = yield self.update(id, {'activated': True})
+        else:
+            update = self.update(id, {'activated': True})
         return update
 
-    @coroutine
+    @if_async(coroutine)
     def is_activated(self, id):
-        activated = yield self.bool_check(id, 'activated')
+        if self.async:
+            activated = yield self.isTrue(id, 'activated')
+        else:
+            activated = self.isTrue(id, 'activated')
         return activated
 
-    @coroutine
+    @if_async(coroutine)
     def verify(self, id, password):
-        data = yield self.get(id)
+        if self.async:
+            data = yield self.get(id)
+        else:
+            data = self.get(id)
         if data is not None:
             return verify(password, data['password'])
         return False
 
-    @coroutine
+    @if_async(coroutine)
     def set_password(self, id, raw_password):
-        update = yield self.update(id, {'password': encrypt(raw_password)})
+        if self.async:
+            update = yield self.update(id, {'password': encrypt(raw_password)})
+        else:
+            update = self.update(id, {'password': encrypt(raw_password)})
         return update
 
-    @coroutine
+    @if_async(coroutine)
     def is_admin(self, id):
-        is_admin = yield self.bool_check(id, 'is_admin')
+        if self.async:
+            is_admin = yield self.isTrue(id, 'is_admin')
+        else:
+            is_admin = self.isTrue(id, 'is_admin')
         return is_admin
