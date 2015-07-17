@@ -14,12 +14,15 @@ Seahorse makes some decisions for you, like it is using RethinkDB by default for
     Email verification uses timestamps generated using the config secret key.  This allows us to verify user email addresses without taking up any space in a database.  Also, allows us to have a builtin timestamp for the email check.  By default the expiration is 24 hours.
 + Password Reset and Password Change Handlers
 + Password encryption
++ A synchronous application shell
++ Custom RethinkService class to easily interact with RethinkDB either synchronously or asynchronously.
+
++ JSX pre-compile
++ JSX directory monitoring development server autoreload
++ Decent initial logging setup
 
 + A markdown-based blog
 
-+ JSX pre-compile
-+ JSX directory watching and autoreload for development server
-+ Decent initial logging setup
 + Nose testing
 + Built on the latest Python, Tornado, RethinkDB and React libraries
 + Bower frontend package management
