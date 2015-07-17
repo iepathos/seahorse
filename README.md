@@ -71,3 +71,27 @@ Run tests
 ````bash
 nose
 ````
+
+
+
+#Routes
+Modules in Seahorse have their routes collected in a routes.py file.
+This is done to help enforce modular design and make it extremely easy
+to locate and adjust all of a module's active routes.
+
+The base seahorse/routes.py contains the initial Index route and
+serves as the central location for connecting and disconnecting modules
+with the main server application.
+
+##Default Routes
+###Auth
+/register/
+/verify/{code}
+/login/
+/logout/
+/change/password/
+/reset/password/
+
+###Blog
+/blog/
+/blog/{slug}
