@@ -5,7 +5,7 @@ Seahorse blog module
 import os
 import logging
 import markdown
-from ..utils import template
+from ..utils import template, raise_404
 from tornado.gen import coroutine
 from ..handlers import BaseHandler
 from ..config import MARKDOWN_DIR
@@ -49,5 +49,9 @@ class BlogDetailHandler(BaseHandler):
     @coroutine
     def get(self, slug):
         filename = os.path.join(MARKDOWN_DIR, make_slug_md(slug))
-        html = get_html(filename)
+        try:
+            html = get_html(filename)
+        except (OSError, IOError) as e:
+            log.error(e)
+            raise_404(self)
         self.render(template('blog/detail.html'), content=html)
