@@ -5,9 +5,7 @@ import string
 import random
 from passlib.hash import pbkdf2_sha256
 from itsdangerous import TimestampSigner
-from .config import conf, TEMPLATES_DIR, SECRET_KEY, \
-                    EMAIL_USERNAME, EMAIL_PASS, \
-                    EMAIL_HOST, EMAIL_PORT, DOMAIN
+from .config import conf, TEMPLATES_DIR, DOMAIN
 from tornado.gen import coroutine
 from tornado_smtpclient.client import SMTPAsync
 from email.mime.multipart import MIMEMultipart
@@ -18,7 +16,12 @@ from tornado.template import Loader
 loader = Loader(TEMPLATES_DIR)
 
 
-# CORE
+def template(path):
+    """Template pathing shortcut function."""
+    return os.path.join(conf.get('template_path'), path)
+
+
+# ERRORS
 def raise_404(handler):
     """Raises a 404 not found on a given handler."""
     handler.clear()
@@ -31,11 +34,6 @@ def raise_403(handler):
     handler.clear()
     handler.set_status(403)
     handler.render(template('errors/403.html'))
-
-
-def template(path):
-    """Template pathing shortcut function."""
-    return os.path.join(conf.get('template_path'), path)
 
 
 # AUTH
