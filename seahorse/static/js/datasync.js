@@ -1,6 +1,7 @@
 $(document).ready(function(){ 
   if ("WebSocket" in window) {
-    var ws = new WebSocket("ws://localhost:8888/datasync/");
+    var domain = window.location.host
+    var ws = new WebSocket("ws://"+domain+"/datasync/");
     
     ws.onopen = function() {
       console.log('Seahorse DataSync online');

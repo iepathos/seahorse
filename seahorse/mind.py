@@ -37,32 +37,11 @@ def watch_jsx_files():
     watch_directory(JSX_DIR)
 
 
-def watch_css_files():
-    log.info('Adding CSS directory to autoreload watch list')
-    watch_directory(CSS_DIR)
-
-
-def watch_img_files():
-    log.info('Adding IMG directory to autoreload watch list')
-    watch_directory(IMG_DIR)
-
-
-def watch_static_files():
-    watch_jsx_files()
-    watch_css_files()
-    watch_img_files()
-    # .js files do not need to be watched,
-    # they should be generated from .jsx
-
-    # .md files do not need to be watched,
-    # html generated from markdown per request
-
-
 @coroutine
 def run_server():
     """Runs a development server."""
     db_conn = yield get_db_conn()
     seahorse = make_app(db_conn, conf)
     if conf['debug']:
-        watch_static_files()
+        watch_jsx_files()
     seahorse.listen(PORT)

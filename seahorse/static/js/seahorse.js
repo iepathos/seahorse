@@ -1,11 +1,12 @@
 
 
-
+// TODO: Replace lame HelloWorld react app with something better
 
 var HelloWorld = React.createClass({displayName: 'HelloWorld',
   render: function() {
     return (
-      React.createElement("p", null, 
+      React.createElement("div", null, 
+        React.createElement("h1", null, "Seahorse Landing"), 
         "Hello, World!", 
         React.createElement("br", null), 
         "It is ", this.props.date.toTimeString()

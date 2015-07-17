@@ -1,15 +1,16 @@
 
 
-
+// TODO: Replace lame HelloWorld react app with something better
 
 var HelloWorld = React.createClass({
   render: function() {
     return (
-      <p>
+      <div>
+        <h1>Seahorse Landing</h1>
         Hello, World!
         <br/>
         It is {this.props.date.toTimeString()}
-      </p>
+      </div>
     );
   }
 });
