@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import code
 import logging
 import argparse
 from tornado.ioloop import IOLoop
@@ -8,7 +9,6 @@ from seahorse.jsx import jsx_compile
 from seahorse.db import build_tables, rethink_setup, \
                         get_db_conn_synchronous
 from seahorse.auth.management import add_user, delete_user, activate_user
-import code
 from seahorse.auth.services import UsersService
 
 
