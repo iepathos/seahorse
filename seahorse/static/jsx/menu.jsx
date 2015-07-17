@@ -75,11 +75,13 @@ if (isLoggedIn()) {
 var Menu = React.createClass({
   render: function() {
     return (
-      <ul>
-        {menu_elements.map(function(link, i){
-          return <li key={i}>{link}</li>
-        })}
-      </ul>
+      <div className="nav">
+        <ul>
+          {menu_elements.map(function(link, i){
+            return <li key={i}>{link}</li>
+          })}
+        </ul>
+      </div>
     );
   }
 });
