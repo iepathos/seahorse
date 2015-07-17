@@ -7,7 +7,7 @@ from tornado.gen import coroutine
 from tornado.web import Application
 from tornado.autoreload import watch
 from tornado.log import enable_pretty_logging
-from .config import conf, PORT, check_config, JSX_DIR, CSS_DIR
+from .config import conf, PORT, check_config, JSX_DIR, CSS_DIR, IMG_DIR
 
 log = logging.getLogger('seahorse.mind')
 
@@ -33,18 +33,29 @@ def watch_directory(directory):
 
 
 def watch_jsx_files():
-    log.info('Adding JSX files to autoreload watch list')
+    log.info('Adding JSX directory to autoreload watch list')
     watch_directory(JSX_DIR)
 
 
 def watch_css_files():
-    log.info('Adding CSS files to autoreload watch list')
+    log.info('Adding CSS directory to autoreload watch list')
     watch_directory(CSS_DIR)
+
+
+def watch_img_files():
+    log.info('Adding IMG directory to autoreload watch list')
+    watch_directory(IMG_DIR)
 
 
 def watch_static_files():
     watch_jsx_files()
     watch_css_files()
+    watch_img_files()
+    # .js files do not need to be watched,
+    # they should be generated from .jsx
+
+    # .md files do not need to be watched,
+    # html generated from markdown per request
 
 
 @coroutine
