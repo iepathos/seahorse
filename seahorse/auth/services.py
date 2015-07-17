@@ -21,13 +21,22 @@ class UsersService(RethinkService):
 
     @coroutine
     def activate(self, id):
-        activated = {
-            'activated': True
-        }
-        update = yield self.update(id, activated)
+        update = yield self.update(id, {'activated': True})
         return update
 
     @coroutine
     def is_activated(self, id):
         user = yield self.get(id)
         return user.get('activated', 'False')
+
+    @coroutine
+    def verify(self, id, password):
+        data = yield self.get(id)
+        if data is not None:
+            return verify(password, data['password'])
+        return False
+
+    @coroutine
+    def set_password(self, id, raw_password):
+        update = yield self.update(id, {'password': encrypt(raw_password)})
+        return update
