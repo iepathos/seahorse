@@ -18,11 +18,12 @@ Seahorse makes some decisions for you, like it is using RethinkDB by default for
 + A markdown-based blog
 
 + JSX pre-compile
-+ Nice initial logging setup
-+ Nose tests
++ JSX directory watching and autoreload for development server
++ Decent initial logging setup
++ Nose testing
 + Built on the latest Python, Tornado, RethinkDB and React libraries
-
 + Bower frontend package management
+
 
 ##Future Features
 + Project shell with synchronous db connection
