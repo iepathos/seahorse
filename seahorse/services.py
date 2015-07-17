@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import rethinkdb as r
+import logging
 from tornado.gen import coroutine
+
+log = logging.logger('seahorse.services')
 
 
 class AsyncRethinkService(object):
@@ -11,6 +14,14 @@ class AsyncRethinkService(object):
 
     def __init__(self, db_conn):
         self.conn = db_conn
+
+    @coroutine
+    def make_table(self):
+        try:
+            yield r.table_create(self.table).run(self.conn)
+            log.info("Table %s created successfully." % self.table)
+        except r.RqlRuntimeError:
+            log.info("Table %s already exists... skipping." % self.table)
 
     @coroutine
     def insert(self, json_data):
