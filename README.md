@@ -1,8 +1,9 @@
-Seahorse v0.4-dev
+Seahorse v0.5-dev
 ----------------
 Seahorse is a fullstack asynchronous web server.  It is built with speed, realtime behavior and scalability in mind.  RethinkDB is capable of pushing changes to the Seahorse web app when data is changed.  Seahorse can notify clients through a data sync websocket.  Frontend uses React.js to take advantage of the excellent virtual dom manipulation.
 
-Seahorse is in active development and could change architecture and library choices drastically as it progresses.
+Seahorse is in active development.  Its organization and design is influenced
+heavily by Django, Flask, and Tornado frameworks.  The goal of Seahorse is to provide rock solid starter template and design for building asynchronous web applications.
 
 ##Features
 + User Registration, Login and Logout

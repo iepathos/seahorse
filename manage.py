@@ -10,7 +10,7 @@ from seahorse.auth.management import add_user, delete_user, activate_user
 
 
 __author__ = 'Glen Baker <iepathos@gmail.com>'
-__version__ = '0.4-dev'
+__version__ = '0.5-dev'
 
 
 log = logging.getLogger('seahorse')
