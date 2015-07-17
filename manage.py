@@ -46,7 +46,7 @@ if __name__ == "__main__":
             description='Seahorse Asynchronous Web Server'
         )
     parser.add_argument('-r', '--run', dest='run', action='store_true',
-                        help='Runs Seahorse server.')
+                        help='Runs the server.')
     parser.add_argument('--build_tables', dest='build_tables',
                         action='store_true', help='Build RethinkDB tables.')
 
