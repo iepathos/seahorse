@@ -3,11 +3,10 @@ import os
 import re
 import string
 import random
-from react import jsx
 from passlib.hash import pbkdf2_sha256
 from itsdangerous import TimestampSigner
-from .config import TEMPLATES_DIR, JS_DIR, JSX_DIR, SECRET_KEY
-from .config import EMAIL_USERNAME, EMAIL_PASS, \
+from .config import TEMPLATES_DIR, SECRET_KEY, \
+                    EMAIL_USERNAME, EMAIL_PASS, \
                     EMAIL_HOST, EMAIL_PORT, DOMAIN
 from tornado.gen import coroutine
 from tornado_smtpclient.client import SMTPAsync
@@ -150,29 +149,3 @@ def send_password_changed_email(email):
     msg = seamail_msg('Your Password Was Changed', email, text, html)
     yield seamail(email, str(msg.as_string()))
 
-
-# JSX
-def rename_jsx(jsx_file):
-    """Renames a .jsx filename to .js"""
-    return str(jsx_file)[:-3]+'js'
-
-
-def jsx_filepath(filename):
-    """Returns filepath: static/jsx/filename"""
-    return os.path.join(JSX_DIR, filename)
-
-
-def js_filepath(filename):
-    """Returns filepath: static/js/filename"""
-    return os.path.join(JS_DIR, filename)
-
-
-def jsx_compile():
-    """Compiles .jsx files in static/jsx into .js files in static/js"""
-    print('Compiling JSX static files into plain Javascript')
-    transformer = jsx.JSXTransformer()
-    jsx_files = os.listdir(JSX_DIR)
-    for jsx_file in jsx_files:
-        transformer.transform(
-                jsx_filepath(jsx_file),
-                js_path=js_filepath(rename_jsx(jsx_file)))

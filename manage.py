@@ -4,7 +4,7 @@ import logging
 import argparse
 from tornado.ioloop import IOLoop
 from seahorse.mind import run_server
-from seahorse.utils import jsx_compile
+from seahorse.jsx import jsx_compile
 from seahorse.db import build_tables, rethink_setup
 from seahorse.auth.management import add_user, delete_user, activate_user
 
