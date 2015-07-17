@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from tornado.gen import coroutine
-import rethinkdb as r
 from ..utils import encrypt, verify
-from ..services import RethinkService
+from ..services import AsyncRethinkService
 
 
-class UsersService(RethinkService):
+class UsersService(AsyncRethinkService):
     table = 'users'
 
     @coroutine

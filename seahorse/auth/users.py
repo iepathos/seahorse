@@ -1,6 +1,6 @@
-from tornado.gen import coroutine
+# -*- coding: utf-8 -*-
 import rethinkdb as r
-# from ..db import get_db_conn
+from tornado.gen import coroutine
 from ..utils import encrypt, verify
 
 

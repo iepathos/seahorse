@@ -3,7 +3,7 @@ import rethinkdb as r
 from tornado.gen import coroutine
 
 
-class RethinkService(object):
+class AsyncRethinkService(object):
     """A RethinkDB based Service requires an asynchronous
     RethinkDB connection and a table name."""
 
