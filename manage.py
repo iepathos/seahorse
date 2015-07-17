@@ -29,7 +29,7 @@ class AppContext(object):
 def open_shell():
     """Opens an interactive shell with application context.
 
-    Context Variables:
+    Available Context Variables:
 
     db_conn - synchronous RethinkDB connection
     users - synchronous RethinkDB UsersService
