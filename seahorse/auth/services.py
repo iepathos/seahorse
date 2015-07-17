@@ -26,8 +26,8 @@ class UsersService(RethinkService):
 
     @coroutine
     def is_activated(self, id):
-        user = yield self.get(id)
-        return user.get('activated', 'False')
+        activated = yield self.bool_check(id, 'activated')
+        return activated
 
     @coroutine
     def verify(self, id, password):
@@ -40,3 +40,8 @@ class UsersService(RethinkService):
     def set_password(self, id, raw_password):
         update = yield self.update(id, {'password': encrypt(raw_password)})
         return update
+
+    @coroutine
+    def is_admin(self, id):
+        is_admin = yield self.bool_check(id, 'is_admin')
+        return is_admin

@@ -35,3 +35,13 @@ class RethinkService(object):
     def get(self, id):
         json_data = yield r.table(self.table).get(id).run(self.conn)
         return json_data
+
+    @coroutine
+    def bool_check(self, id, field):
+        rv = yield self.get(id)
+        return rv.get(field, False)
+
+    @coroutine
+    def set_field(self, id, field, val):
+        update = yield self.update(id, {field: val})
+        return update
