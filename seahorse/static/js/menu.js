@@ -71,7 +71,6 @@ if (isLoggedIn()) {
 }
 
 
-
 var Menu = React.createClass({displayName: 'Menu',
   render: function() {
     return (
