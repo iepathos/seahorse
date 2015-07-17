@@ -27,6 +27,13 @@ class AppContext(object):
 
 
 def open_shell():
+    """Opens an interactive shell with application context.
+
+    Context Variables:
+
+    db_conn - synchronous RethinkDB connection
+    users - synchronous RethinkDB UsersService
+    """
     app_ctx = AppContext()
     shell_ctx = globals()
     shell_ctx.update(vars(app_ctx))
