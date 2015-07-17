@@ -1,10 +1,9 @@
 {% extends '../templates/base.html' %}
 
-{% block title %}Blog{% end %}
+{% block title %}{{ title }}{% end %}
 
 {% block content %}
     <div>
-        <h1>[blog]</h1>
         {% raw content %}
         <a href="/blog/">Back to Blog Index</a>
     </div>

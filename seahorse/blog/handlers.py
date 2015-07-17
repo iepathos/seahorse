@@ -36,12 +36,29 @@ def get_html(filename):
     return html
 
 
+def get_title(slug):
+    return slug.replace('-', ' ').title()
+
+
+class Post(object):
+
+    def __init__(self, slug):
+        self.slug = slug
+        self.title = get_title(slug)
+
+
+def get_posts(md_dir):
+    files = os.listdir(md_dir)
+    slugs = [get_slug(f) for f in files]
+    posts = [Post(slug) for slug in slugs]
+    return posts
+
+
 class BlogListHandler(BaseHandler):
 
     def get(self):
-        files = os.listdir(MARKDOWN_DIR)
-        slugs = [get_slug(f) for f in files]
-        self.render(template('blog/list.html'), slugs=slugs)
+        posts = get_posts(MARKDOWN_DIR)
+        self.render(template('blog/list.html'), posts=posts)
 
 
 class BlogDetailHandler(BaseHandler):
@@ -54,4 +71,5 @@ class BlogDetailHandler(BaseHandler):
         except (OSError, IOError) as e:
             log.error(e)
             raise_404(self)
-        self.render(template('blog/detail.html'), content=html)
+        title = get_title(slug)
+        self.render(template('blog/detail.html'), title=title, content=html)
