@@ -31,7 +31,7 @@ def open_shell():
 
     Available Context Variables:
 
-    db_conn - synchronous RethinkDB connection
+    db_conn - an open synchronous RethinkDB connection
     users - synchronous RethinkDB UsersService
     """
     app_ctx = AppContext()
