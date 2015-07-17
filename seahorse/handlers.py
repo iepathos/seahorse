@@ -33,7 +33,6 @@ class BaseWebSocketHandler(WebSocketHandler):
 
 class HomeHandler(BaseHandler):
 
-    @authenticated
     @coroutine
     def get(self):
         self.render(template('home.html'),
