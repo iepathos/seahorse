@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-import os
 import logging
 from .routes import routes
 from .db import get_db_conn
 from tornado.gen import coroutine
 from tornado.web import Application
-from tornado.autoreload import watch
+from .jsx import watch_jsx_files
 from tornado.log import enable_pretty_logging
-from .config import conf, PORT, check_config, JSX_DIR
+from .config import conf, PORT, check_config
 
 log = logging.getLogger('seahorse.mind')
 
@@ -25,18 +24,6 @@ def make_app(db_conn, config):
     enable_pretty_logging()
     check_config(config)
     return Seahorse(config=config, db_conn=db_conn)
-
-
-def watch_directory(directory):
-    """Adds a given directory to autoreload watch list."""
-    for filename in os.listdir(directory):
-        watch(os.path.join(directory, filename))
-
-
-def watch_jsx_files():
-    """Adds the JSX_DIR to autoreload watch list."""
-    log.info('Adding JSX directory to autoreload watch list')
-    watch_directory(JSX_DIR)
 
 
 @coroutine

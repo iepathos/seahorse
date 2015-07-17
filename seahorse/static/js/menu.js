@@ -10,6 +10,14 @@ function isLoggedIn(){
   }
 }
 
+var HomeButton = React.createClass({displayName: 'HomeButton',
+  render: function() {
+    return (
+      React.createElement("a", {href: "/"}, "home")
+    );
+  }
+});
+
 var BlogButton = React.createClass({displayName: 'BlogButton',
   render: function() {
     return (
@@ -59,15 +67,12 @@ var ResetPasswordButton = React.createClass({displayName: 'ResetPasswordButton',
 });
 
 
-menu_elements = []
-menu_elements.push(React.createElement(BlogButton, null))
+menu_elements = [React.createElement(HomeButton, null), React.createElement(BlogButton, null)]
 
 if (isLoggedIn()) {
-  menu_elements.push(React.createElement(ChangePasswordButton, null))
-  menu_elements.push(React.createElement(LogoutButton, null))
+  menu_elements.push(React.createElement(ChangePasswordButton, null), React.createElement(LogoutButton, null))
 } else {
-  menu_elements.push(React.createElement(RegisterButton, null))
-  menu_elements.push(React.createElement(LoginButton, null))
+  menu_elements.push(React.createElement(RegisterButton, null), React.createElement(LoginButton, null))
 }
 
 

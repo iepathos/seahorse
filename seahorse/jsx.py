@@ -3,6 +3,7 @@ import os
 import logging
 from react import jsx
 from .config import JS_DIR, JSX_DIR
+from tornado.autoreload import watch
 
 log = logging.getLogger('seahorse.jsx')
 
@@ -32,3 +33,15 @@ def jsx_compile():
         transformer.transform(
                 jsx_filepath(jsx_file),
                 js_path=js_filepath(rename_jsx(jsx_file)))
+
+
+def watch_directory(directory):
+    """Adds a given directory to the autoreload watch list."""
+    for filename in os.listdir(directory):
+        watch(os.path.join(directory, filename))
+
+
+def watch_jsx_files():
+    """Adds the JSX_DIR to the autoreload watch list."""
+    log.info('Adding JSX directory to autoreload watch list')
+    watch_directory(JSX_DIR)

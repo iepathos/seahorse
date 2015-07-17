@@ -10,6 +10,14 @@ function isLoggedIn(){
   }
 }
 
+var HomeButton = React.createClass({
+  render: function() {
+    return (
+      <a href="/">home</a>
+    );
+  }
+});
+
 var BlogButton = React.createClass({
   render: function() {
     return (
@@ -59,15 +67,12 @@ var ResetPasswordButton = React.createClass({
 });
 
 
-menu_elements = []
-menu_elements.push(<BlogButton />)
+menu_elements = [<HomeButton />, <BlogButton />]
 
 if (isLoggedIn()) {
-  menu_elements.push(<ChangePasswordButton />)
-  menu_elements.push(<LogoutButton />)
+  menu_elements.push(<ChangePasswordButton />, <LogoutButton />)
 } else {
-  menu_elements.push(<RegisterButton />)
-  menu_elements.push(<LoginButton />)
+  menu_elements.push(<RegisterButton />, <LoginButton />)
 }
 
 
