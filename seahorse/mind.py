@@ -28,11 +28,13 @@ def make_app(db_conn, config):
 
 
 def watch_directory(directory):
+    """Adds a given directory to autoreload watch list."""
     for filename in os.listdir(directory):
         watch(os.path.join(directory, filename))
 
 
 def watch_jsx_files():
+    """Adds the JSX_DIR to autoreload watch list."""
     log.info('Adding JSX directory to autoreload watch list')
     watch_directory(JSX_DIR)
 

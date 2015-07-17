@@ -21,11 +21,6 @@ DB_NAME = 'test'
 
 SECRET_KEY = 'seahorse'
 
-EMAIL_USERNAME = os.environ.get('EMAIL_USERNAME')
-EMAIL_PASS = os.environ.get('EMAIL_PASS')
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-
 PROTOCOL = 'http'
 HOST = os.environ.get('HOST', 'localhost')
 PORT = os.environ.get('PORT', '8888')
@@ -40,10 +35,10 @@ conf = {
     'cookie_secret': SECRET_KEY,
     'serve_traceback': True,
     'login_url': '/login/',
-    'email_username': EMAIL_USERNAME,
-    'email_pass': EMAIL_PASS,
-    'email_host': EMAIL_HOST,
-    'email_port': EMAIL_PORT,
+    'email_username': os.environ.get('EMAIL_USERNAME'),
+    'email_pass': os.environ.get('EMAIL_PASS'),
+    'email_host': 'smtp.gmail.com',
+    'email_port': 587,
 }
 
 
