@@ -7,7 +7,7 @@ from tornado.gen import coroutine
 from tornado.web import Application
 from tornado.autoreload import watch
 from tornado.log import enable_pretty_logging
-from .config import conf, PORT, check_config, JSX_DIR, CSS_DIR, IMG_DIR
+from .config import conf, PORT, check_config, JSX_DIR
 
 log = logging.getLogger('seahorse.mind')
 
