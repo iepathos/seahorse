@@ -15,6 +15,8 @@ class Seahorse(Application):
 
 
 def make_app(db_conn, config):
+    """Generates a Seahorse Application given an asynchronous
+    database connection and an appropriate config."""
     enable_pretty_logging()
     check_config()
     return Seahorse(config=config, db_conn=db_conn)

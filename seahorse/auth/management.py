@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+Seahorse management commands are synchronous, just executed
+by users from their shell using the manage.py control script.
+"""
 from ..db import get_db_conn_synchronous
 from ..utils import encrypt
 import rethinkdb as r
