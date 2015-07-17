@@ -4,11 +4,9 @@
 
 {% block content %}
     <div>
-        <div>
-            <h1>[verify email]</h1>
-            <p>Your signature is either invalid or expired.  Re-send verification?</p>
-            {% include 'auth/_resend_verification_form.html' %}
-        </div>
+        <h1>[verify email]</h1>
+        <p>Your signature is either invalid or expired.  Re-send verification?</p>
+        {% include 'auth/_resend_verification_form.html' %}
     </div>
 {% end %}
 
