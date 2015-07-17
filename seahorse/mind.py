@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from tornado.web import Application
-from tornado.log import enable_pretty_logging
-from tornado.gen import coroutine
-from .config import conf, PORT, check_config
 from .routes import routes
 from .db import get_db_conn
+from tornado.gen import coroutine
+from tornado.web import Application
+from .config import conf, PORT, check_config
+from tornado.log import enable_pretty_logging
 
 
 class Seahorse(Application):

@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
+from .config import conf
 from .handlers import HomeHandler, \
                       DataSyncHandler
-from .config import conf
 from .auth.routes import auth_routes
 from tornado.web import StaticFileHandler
 
