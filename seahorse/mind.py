@@ -4,32 +4,22 @@ from tornado.log import enable_pretty_logging
 from tornado.gen import coroutine
 from .config import conf, PORT, check_config
 from .handlers import HomeHandler, DataSyncHandler
-from .auth.handlers import RegistrationHandler, \
-                           EmailVerificationHandler, \
-                           PasswordResetHandler, \
-                           PasswordChangeHandler, \
-                           LoginHandler, \
-                           LogoutHandler
+from .auth.handlers import auth_routes
 from .db import get_db_conn
 
 
 class Seahorse(Application):
 
     def __init__(self, config, db_conn):
-        handlers = [
+        routes = [
             (r'/', HomeHandler),
-            (r'/register/', RegistrationHandler),
-            (r'/verify/([^/]*)', EmailVerificationHandler),
-            (r'/reset/password/', PasswordResetHandler),
-            (r'/change/password/', PasswordChangeHandler),
-            (r'/login/', LoginHandler),
-            (r'/logout/', LogoutHandler),
             (r'/datasync/', DataSyncHandler),
-
             (r'/static/(.*)', StaticFileHandler,
              {'path': config['static_path']}),
         ]
-        Application.__init__(self, handlers, **config)
+        routes += auth_routes
+
+        Application.__init__(self, routes, **config)
 
         self.db = db_conn
 

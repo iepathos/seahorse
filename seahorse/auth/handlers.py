@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 from tornado.gen import coroutine
 from tornado.log import access_log
 from tornado.escape import json_encode
@@ -10,7 +11,6 @@ from ..utils import template, is_valid_email, \
 from .users import verify_user, add_user, activate_user, \
                    change_password, is_activated
 from tornado.web import authenticated
-import logging
 
 log = logging.getLogger('seahorse.auth.handlers')
 
@@ -170,3 +170,12 @@ class LogoutHandler(BaseHandler):
         access_log.info('%s logged out.' % user)
         self.clear_cookie("user")
         self.redirect(self.get_argument("next", "/"))
+
+auth_routes = [
+    (r'/register/', RegistrationHandler),
+    (r'/verify/([^/]*)', EmailVerificationHandler),
+    (r'/reset/password/', PasswordResetHandler),
+    (r'/change/password/', PasswordChangeHandler),
+    (r'/login/', LoginHandler),
+    (r'/logout/', LogoutHandler),
+]
