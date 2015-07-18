@@ -71,10 +71,10 @@ if __name__ == "__main__":
         rethink_setup()
         IOLoop.current().run_sync(run_server)
         IOLoop.current().start()
-    elif args.jsx:
-        jsx_compile()
     elif args.build_tables:
         IOLoop.current().run_sync(build_tables)
+    elif args.jsx:
+        jsx_compile()
     elif args.shell:
         open_shell()
     elif args.add_user:
