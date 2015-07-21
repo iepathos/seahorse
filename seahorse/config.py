@@ -1,29 +1,30 @@
 # -*- coding: utf-8 -*-
-import os
+from os.path import join, dirname
+from os.environ import get
 import logging
 
 log = logging.getLogger('seahorse.config')
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-APP_DIR = os.path.join(BASE_DIR, 'seahorse')
-TEMPLATES_DIR = os.path.join(APP_DIR, 'templates')
-STATIC_DIR = os.path.join(APP_DIR, 'static')
-JS_DIR = os.path.join(STATIC_DIR, 'js')
-JSX_DIR = os.path.join(STATIC_DIR, 'jsx')
-CSS_DIR = os.path.join(STATIC_DIR, 'css')
-IMG_DIR = os.path.join(STATIC_DIR, 'img')
-MARKDOWN_DIR = os.path.join(STATIC_DIR, 'md')
+BASE_DIR = dirname(dirname(__file__))
+APP_DIR = join(BASE_DIR, 'seahorse')
+TEMPLATES_DIR = join(APP_DIR, 'templates')
+STATIC_DIR = join(APP_DIR, 'static')
+JS_DIR = join(STATIC_DIR, 'js')
+JSX_DIR = join(STATIC_DIR, 'jsx')
+CSS_DIR = join(STATIC_DIR, 'css')
+IMG_DIR = join(STATIC_DIR, 'img')
+MARKDOWN_DIR = join(STATIC_DIR, 'md')
 
 
-RETHINK_HOST = os.environ.get('RDB_HOST', 'localhost')
-RETHINK_PORT = os.environ.get('RDB_PORT', 28015)
-DB_NAME = os.environ.get('seahorse', 'test')
+RETHINK_HOST = get('RDB_HOST', 'localhost')
+RETHINK_PORT = get('RDB_PORT', 28015)
+DB_NAME = get('seahorse', 'test')
 
 SECRET_KEY = 'seahorse'
 
 PROTOCOL = 'http'
-HOST = os.environ.get('HOST', 'localhost')
-PORT = os.environ.get('PORT', '8888')
+HOST = get('HOST', 'localhost')
+PORT = get('PORT', '8888')
 DOMAIN = '%s://%s:%s' % (PROTOCOL, HOST, PORT)
 
 conf = {
@@ -35,8 +36,8 @@ conf = {
     'cookie_secret': SECRET_KEY,
     'serve_traceback': True,
     'login_url': '/login/',
-    'email_username': os.environ.get('EMAIL_USERNAME'),
-    'email_pass': os.environ.get('EMAIL_PASS'),
+    'email_username': get('EMAIL_USERNAME'),
+    'email_pass': get('EMAIL_PASS'),
     'email_host': 'smtp.gmail.com',
     'email_port': 587,
 }
