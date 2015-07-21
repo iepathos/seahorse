@@ -27,6 +27,8 @@ Seahorse makes some decisions for you, like it is using RethinkDB by default for
 + Built on the latest Python, Tornado, RethinkDB and React libraries
 + Bower frontend package management
 
++ Dokku Docker Deployment
+    - Necessary Plugins: dokku-apt, dokku-rethinkdb-plugin
 
 ##Future Features
 + Project shell with synchronous db connection
