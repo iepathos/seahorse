@@ -15,9 +15,9 @@ IMG_DIR = os.path.join(STATIC_DIR, 'img')
 MARKDOWN_DIR = os.path.join(STATIC_DIR, 'md')
 
 
-RETHINK_HOST = 'localhost'
-RETHINK_PORT = 28015
-DB_NAME = 'test'
+RETHINK_HOST = os.environ.get('RDB_HOST', 'localhost')
+RETHINK_PORT = os.environ.get('RDB_PORT', 28015)
+DB_NAME = os.environ.get('seahorse', 'test')
 
 SECRET_KEY = 'seahorse'
 
