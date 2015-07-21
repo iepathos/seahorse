@@ -44,7 +44,7 @@ Python Libraries
 ----------------
 + Python 3.4.3
 + Tornado 4.2
-+ RethinkDB 2.0
++ RethinkDB 2.0.4
 + ItsDangerous 0.24
 + Passlib 1.6.2
 
