@@ -17,7 +17,7 @@ MARKDOWN_DIR = os.path.join(STATIC_DIR, 'md')
 
 RETHINK_HOST = os.environ.get('RDB_HOST', 'localhost')
 RETHINK_PORT = os.environ.get('RDB_PORT', 28015)
-DB_NAME = os.environ.get('seahorse', 'test')
+DB_NAME = os.environ.get('RDB_NAME', 'test')
 
 SECRET_KEY = 'seahorse'
 
