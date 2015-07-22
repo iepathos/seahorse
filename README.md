@@ -26,6 +26,8 @@ Seahorse makes some decisions for you, like it is using RethinkDB by default for
 + Nose testing
 + Built on the latest Python, Tornado, RethinkDB and React libraries
 + Bower frontend package management
++ Websocket support and configuration for nGinx and dokku deployment
+
 
 + Dokku Docker Deployment
     - Necessary Dokku Plugins: 
