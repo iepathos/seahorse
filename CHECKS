@@ -2,7 +2,7 @@ WAIT=10
 TIMEOUT=20
 ATTEMPTS=2
 
-/                       Seahorse Landing             
+/                       <title>Home         
 /static/favicon.png 
 /static/css/base.css    .nav
 /static/js/menu.js      isLoggedIn()
