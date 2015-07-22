@@ -29,7 +29,7 @@ Seahorse makes some decisions for you, like it is using RethinkDB by default for
 
 + Dokku Docker Deployment
     - Necessary Dokku Plugins: 
-        + dokku-apt - used to inject nodejs for React.js pre-compile.
+        + dokku-apt - used to inject nodejs for React.js pre-compile. [dokku-apt](https://github.com/F4-Group/dokku-apt)
         + dokku-rethinkdb-plugin - used to install rethinkdb and link. [dokku-rethinkdb-plugin using latest RethinkDB 2.0.4](https://github.com/iepathos/dokku-rethinkdb-plugin) - waiting for updates to pull through to official dokku-rethinkdb-plugin repo.
 
 ##Future Features
