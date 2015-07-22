@@ -13,7 +13,7 @@ from seahorse.auth.services import UsersService
 
 
 __author__ = 'Glen Baker <iepathos@gmail.com>'
-__version__ = '0.5-dev'
+__version__ = '0.6-dev'
 
 
 log = logging.getLogger('seahorse')
