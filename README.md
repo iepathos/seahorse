@@ -28,7 +28,9 @@ Seahorse makes some decisions for you, like it is using RethinkDB by default for
 + Bower frontend package management
 
 + Dokku Docker Deployment
-    - Necessary Plugins: dokku-apt, dokku-rethinkdb-plugin
+    - Necessary Dokku Plugins: 
+        + dokku-apt - used to inject nodejs for React.js pre-compile.
+        + dokku-rethinkdb-plugin - used to install rethinkdb and link. [dokku-rethinkdb-plugin using latest RethinkDB 2.0.4](https://github.com/iepathos/dokku-rethinkdb-plugin) - waiting for updates to pull through to official dokku-rethinkdb-plugin repo.
 
 ##Future Features
 + Project shell with synchronous db connection
