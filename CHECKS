@@ -8,3 +8,4 @@ ATTEMPTS=2
 /static/js/menu.js      isLoggedIn()
 /login/                 login
 /register/              register
+/reset/password/        reset password
