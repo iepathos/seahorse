@@ -99,13 +99,36 @@ with the main server application.
 
 ##Default Routes
 ###Auth
-/register/
-/verify/{code}
-/login/
-/logout/
-/change/password/
-/reset/password/
++ /register/
++ /verify/{code}
++ /login/
++ /logout/
++ /change/password/
++ /reset/password/
 
 ###Blog
-/blog/
-/blog/{slug}
++ /blog/
++ /blog/{slug}
+
+
+
+
+
+##Commands
+````bash
+Seahorse Asynchronous Web Server
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -r, --run             Runs the server.
+  --build_tables        Build RethinkDB tables.
+  -jsx, --jsx_compile   Compile JSX static files into JS files
+  -s, --shell           Open an application shell.
+  --add_user [ADD_USER [ADD_USER ...]]
+                        Add a user to the database. Expects id and raw
+                        password.
+  --delete_user [DELETE_USER [DELETE_USER ...]]
+                        Delete a user from the database. Expects id.
+  --activate_user [ACTIVATE_USER [ACTIVATE_USER ...]]
+                        Activate a user account. Expects id.
+````
