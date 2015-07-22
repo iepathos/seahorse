@@ -6,4 +6,5 @@ ATTEMPTS=2
 /static/favicon.png 
 /static/css/base.css    .nav
 /static/js/menu.js      isLoggedIn()
-
+/login/                 login
+/register/              register
