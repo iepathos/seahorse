@@ -11,7 +11,7 @@ Seahorse makes some decisions for you, like it is using RethinkDB by default for
 ##Features
 + User Registration, Login and Logout
 + Email Backend and Verification
-    Email verification uses timestamps generated using the config secret key.  This allows us to verify user email addresses without taking up any space in a database.  Also, allows us to have a builtin timestamp for the email check.  By default the expiration is 24 hours.
+    - Email verification uses tokens signed generated using the config secret key and a timestamp.  This allows us to verify user email addresses without taking up any space in a database.  Also, it allows us to have a builtin timestamp for the email check.  By default the expiration is 24 hours.
 + Password Reset and Password Change Handlers
 + Password encryption
 + A synchronous application shell
