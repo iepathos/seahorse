@@ -10,3 +10,4 @@ ATTEMPTS=2
 /login/                 login
 /register/              register
 /reset/password/        reset password
+/blog/                  <title>Blog
