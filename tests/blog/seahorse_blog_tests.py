@@ -9,7 +9,6 @@ class SeahorseBlogTests(SeahorseTestCase):
         self.assertGetReturns200(url)
 
     def test_log_detail(self):
-        # TODO: setup test md dir to check against constant
-        # test post
+        # TODO: setup test markdown dir to check against constant
         url = '/blog/hello-world'
         self.assertGetReturns200(url)
