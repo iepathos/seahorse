@@ -4,7 +4,7 @@ Seahorse is a fullstack asynchronous web server.  It is built with speed, realti
 
 Seahorse is in active development.  Its organization and design is influenced heavily by Django, Flask, and Tornado frameworks.  The goal of Seahorse is to provide a rock solid starter template and design for building asynchronous web applications.
 
-Seahorse makes some decisions for you, like it is using RethinkDB by default for the database.  RethinkDB is a NoSQL based database with an emphasis on being asynchronous, scalable and works great with Tornado.  A more customizable design is planned, but not a high priority.
+Seahorse makes some decisions for you, like it is using RethinkDB by default for the database.  RethinkDB is a NoSQL based database with an emphasis on being asynchronous, scalable and built right on top of Tornado.  A more customizable design is planned, but not a high priority.
 
 
 
