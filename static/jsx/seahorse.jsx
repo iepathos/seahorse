@@ -1,23 +1,19 @@
 
-
-// TODO: Replace lame HelloWorld react app with something better
-
-var HelloWorld = React.createClass({
+var LandingMessage = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>Seahorse Landing</h1>
-        Hello, World!
-        <br/>
-        It is {this.props.date.toTimeString()}
+        <h1>Welcome to ehab.it</h1>
+        <p>Ehab.it is a realtime, permission controlled action list with the ability
+        to generate actions from emails and visa versa.  Ehab.it is invite only.</p>
       </div>
     );
   }
 });
 
-setInterval(function() {
-  React.render(
-    <HelloWorld date={new Date()} />,
-    document.getElementById('content')
-  );
-}, 500);
+
+React.render(
+  <LandingMessage />,
+  document.getElementById('content')
+);
+
